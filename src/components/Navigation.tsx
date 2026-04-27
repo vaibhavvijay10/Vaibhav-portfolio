@@ -33,10 +33,11 @@ export default function Navigation({
   return (
     <>
       {/* Desktop Sidebar Navigation */}
-      <nav className="hidden md:fixed md:left-0 md:top-0 md:h-screen md:w-20 md:bg-foreground md:flex md:flex-col md:items-center md:justify-start md:py-8 md:gap-8 md:z-40 md:border-r md:border-border">
+      <nav aria-label="Primary" className="hidden md:fixed md:left-0 md:top-0 md:h-screen md:w-20 md:bg-foreground md:flex md:flex-col md:items-center md:justify-start md:py-8 md:gap-8 md:z-40 md:border-r md:border-border">
         {/* Logo */}
         <button
           onClick={() => onNavigate("home")}
+          aria-label="Vaibhav Vijay — go to home"
           className="w-12 h-12 rounded-lg bg-accent text-white font-bold text-lg hover:bg-accent/90 transition-colors duration-200 flex items-center justify-center"
         >
           VV
@@ -51,6 +52,8 @@ export default function Navigation({
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
+                aria-label={item.label}
+                aria-current={isActive ? "page" : undefined}
                 className={`p-3 rounded-lg transition-all duration-200 ${
                   isActive
                     ? "bg-accent text-white"
@@ -58,7 +61,7 @@ export default function Navigation({
                 }`}
                 title={item.label}
               >
-                <Icon size={20} />
+                <Icon size={20} aria-hidden="true" />
               </button>
             );
           })}
@@ -72,14 +75,17 @@ export default function Navigation({
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
         className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors"
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
       </button>
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <nav className="md:hidden fixed inset-0 top-0 bg-foreground text-white z-40 flex flex-col items-center justify-center gap-8">
+        <nav id="mobile-navigation" aria-label="Primary mobile" className="md:hidden fixed inset-0 top-0 bg-foreground text-white z-40 flex flex-col items-center justify-center gap-8">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (

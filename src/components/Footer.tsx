@@ -48,14 +48,14 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="font-semibold">Connect</h4>
             <div className="flex gap-3">
-              <a href="mailto:vvvj.14@gmail.com" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="Email">
-                <Mail size={18} />
+              <a href="mailto:vvvj.14@gmail.com" aria-label="Email Vaibhav Vijay" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="Email">
+                <Mail size={18} aria-hidden="true" />
               </a>
-              <a href="https://linkedin.com/in/vaibhavvijay10" target="_blank" rel="noopener noreferrer" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="LinkedIn">
-                <Linkedin size={18} />
+              <a href="https://linkedin.com/in/vaibhavvijay10" target="_blank" rel="noopener noreferrer" aria-label="Vaibhav Vijay on LinkedIn (opens in new tab)" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="LinkedIn">
+                <Linkedin size={18} aria-hidden="true" />
               </a>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="WhatsApp">
-                <MessageCircle size={18} />
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Message Vaibhav Vijay on WhatsApp (opens in new tab)" className="p-3 bg-accent/20 rounded-lg hover:bg-accent transition-colors" title="WhatsApp">
+                <MessageCircle size={18} aria-hidden="true" />
               </a>
             </div>
             <a
