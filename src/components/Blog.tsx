@@ -14,6 +14,64 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "4",
+    title: "I Spent Years in iGaming. The Biggest Lesson Had Nothing to Do With Odds",
+    content: `Most people hear "iGaming" and think of luck and flashy promotions. What they miss is that this industry is one of the most advanced classrooms in behavioural economics on the planet.
+
+Every decision a player makes is a real time experiment in risk tolerance, loss aversion, and reward sensitivity. And on the operator side, every bonus structure, every loyalty tier, every cashback mechanic is a hypothesis about what drives LTV versus short term NGR spikes.
+
+I spent years in this space, and the sharpest lesson was this: generosity without structure destroys value. The instinct was always to offer bigger bonuses. More free bets, higher match percentages. The deposit numbers looked great for a week. Then the cohort would churn, having extracted the value and moved on. Classic bonus abuse pattern.
+
+The turning point came when we shifted from "how much can we give" to "what behaviour are we rewarding." We rebuilt the bonus architecture around actions that correlated with long term retention: consecutive day logins, multi product engagement, responsible deposit patterns. The bonuses got smaller, but player lifetime value jumped nearly 5x and wagering frequency stabilized across cohorts.
+
+The transferable insight is universal: in any business, incentives that reward the wrong behaviour will attract the wrong customers. Whether you are running a sportsbook, a casino, a SaaS free trial, or a loyalty program, the question is the same.
+
+Are your incentives driving real player engagement or just inflating your FTD numbers?`,
+    date: "Apr 27, 2026",
+    linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_igaming-sportsbook-onlinecasino-activity-7454390128829132800-FRsg",
+    tags: ["iGaming", "Player Retention", "LTV", "CRM"],
+  },
+  {
+    id: "5",
+    title: "The Most Expensive Customer Is the One You Already Paid For Twice",
+    content: `Acquisition gets the budget. Retention gets the leftovers. And reactivation? Most teams pretend it does not exist.
+
+Here is what nobody talks about: dormant users already trusted you once. They downloaded your app, created an account, maybe even made a purchase. Then they went silent. And most brands just keep spending to acquire new users who look exactly like the ones they already lost.
+
+If your reactivation rate is near zero, your effective CAC is much higher than your dashboard shows. A chunk of those "acquired" users are just cycling through a revolving door.
+
+I spent a quarter rebuilding the reactivation engine for a brand where dormant users outnumbered active ones 3 to 1. We segmented by last activity, predicted the saveable cohort, and ran sequenced journeys across push, email, and in app messaging. Kill criteria were strict: if a cohort did not show positive value per recipient within 7 days, we pulled the spend.
+
+The result: 14% of the dormant base came back, and the cost per reactivated user was roughly one fifth of acquiring a fresh one.
+
+Retention is not a department. It is a growth strategy most teams underinvest in because it is less glamorous than top of funnel campaigns.
+
+What percentage of your user base is dormant right now, and does anyone in your org own that number?`,
+    date: "Apr 26, 2026",
+    linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_retentionmarketing-crm-lifecyclemarketing-activity-7454005111053471745-A1hp",
+    tags: ["Retention Marketing", "CRM", "Reactivation", "Lifecycle"],
+  },
+  {
+    id: "6",
+    title: "Your Brand Just Lost a Customer It Never Knew About",
+    content: `Last month, a friend asked Claude Cowork to recommend a CRM tool. It gave him three names. She picked one without ever opening Google.
+
+No ad was clicked. No landing page was visited. No retargeting pixel fired. The brands that lost? They have no idea they were even in the running.
+
+Discovery is moving from search bars to conversations with machines. People are asking agents to shortlist, compare, and recommend. By the time a human lands on your website, the decision is already half made.
+
+The brands winning in this new layer share a few things: crystal clear positioning, structured data that machines can parse, strong third party proof (reviews, citations, community mentions), and a narrative that holds up without a salesperson in the room.
+
+When I tested this with a brand I was consulting for, we restructured their knowledge base, FAQ schema, and review strategy to be "readable" by the agents people actually use today. Within weeks, the brand started appearing in recommendations for queries we had never ranked for organically.
+
+This is not about abandoning SEO. It is about making your brand legible to the machines doing the shortlisting for your customers.
+
+Who is your invisible competitor, the one getting recommended in conversations you cannot even track?`,
+    date: "Apr 25, 2026",
+    linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_growthmarketing-brandstrategy-performancemarketing-activity-7453508188294926336-VhFW",
+    tags: ["GEO", "AEO", "Brand Strategy", "AI Discovery"],
+  },
+  {
     id: "1",
     title: "Your Next Customer May Never Visit Your Website",
     content: `Your next customer may never visit your website!!
