@@ -3,9 +3,10 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://vaibhavvijay.com/</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-04-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://vaibhavvijay.com/" />
@@ -13,16 +14,82 @@
     <image:image>
       <image:loc>https://vaibhavvijay.com/og-image.jpg</image:loc>
       <image:title>Vaibhav Vijay — Head of Growth &amp; Performance Marketing Leader</image:title>
-      <image:caption>Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years of experience.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://vaibhavvijay.com/profile.jpg</image:loc>
       <image:title>Vaibhav Vijay</image:title>
     </image:image>
   </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/structured-generosity-igaming-ltv</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-igaming.webp</image:loc>
+      <image:title>Structured Generosity — The Secret to iGaming LTV</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/reactivation-cheaper-than-acquisition</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-reactivation.webp</image:loc>
+      <image:title>The Goldmine You Already Paid For — The Economics of the Dormant User</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/your-brand-just-lost-a-customer</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-geo-aeo.webp</image:loc>
+      <image:title>Your Brand Just Lost a Customer It Never Knew About</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/next-customer-may-never-visit-your-website</loc>
+    <lastmod>2026-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-discovery-shift.webp</image:loc>
+      <image:title>Your Next Customer May Never Visit Your Website</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/annie-duke-3-frameworks-decision-quality</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-annie-duke.webp</image:loc>
+      <image:title>Upgrade Your Decision Quality — 3 Frameworks from Annie Duke</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/meta-vs-google-ads-the-two-machines</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-meta-vs-google.webp</image:loc>
+      <image:title>The Two Machines — Meta vs Google Ads</image:title>
+    </image:image>
+  </url>
+
   <url>
     <loc>https://vaibhavvijay.com/Resume-VaibhavVijay.pdf</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
