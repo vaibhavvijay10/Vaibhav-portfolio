@@ -29,6 +29,7 @@ The transferable insight is universal: in any business, incentives that reward t
 Are your incentives driving real player engagement or just inflating your FTD numbers?`,
     date: "Apr 27, 2026",
     linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_igaming-sportsbook-onlinecasino-activity-7454390128829132800-FRsg",
+    infographicUrl: "/blog/post-igaming.jpg",
     tags: ["iGaming", "Player Retention", "LTV", "CRM"],
   },
   {
@@ -49,6 +50,7 @@ Retention is not a department. It is a growth strategy most teams underinvest in
 What percentage of your user base is dormant right now, and does anyone in your org own that number?`,
     date: "Apr 26, 2026",
     linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_retentionmarketing-crm-lifecyclemarketing-activity-7454005111053471745-A1hp",
+    infographicUrl: "/blog/post-reactivation.jpg",
     tags: ["Retention Marketing", "CRM", "Reactivation", "Lifecycle"],
   },
   {
@@ -69,6 +71,7 @@ This is not about abandoning SEO. It is about making your brand legible to the m
 Who is your invisible competitor, the one getting recommended in conversations you cannot even track?`,
     date: "Apr 25, 2026",
     linkedinUrl: "https://www.linkedin.com/posts/vaibhavvijay10_growthmarketing-brandstrategy-performancemarketing-activity-7453508188294926336-VhFW",
+    infographicUrl: "/blog/post-geo-aeo.jpg",
     tags: ["GEO", "AEO", "Brand Strategy", "AI Discovery"],
   },
   {
@@ -105,7 +108,7 @@ Marketing now has 2 audiences: Humans and AI agents.
 How is your team preparing for this shift, are you still optimizing only for search, or also for AI recommendations?`,
     date: "Mar 18, 2026",
     linkedinUrl: "https://linkedin.com/in/vaibhavvijay10",
-    infographicUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663445591701/LtSA5bGvoTNWX75LT2GHpM/blog-post-1-geo_b49c1fa8.jfif",
+    infographicUrl: "/blog/post-discovery-shift.jpg",
     tags: ["Marketing", "AI", "GEO", "Strategy"],
   },
   {
@@ -131,7 +134,7 @@ Work example: for reactivation journeys, we tracked 7-day value/recipient + unsu
 Curious: what's one "short feedback loop" metric you trust most in your business?`,
     date: "Mar 15, 2026",
     linkedinUrl: "https://linkedin.com/in/vaibhavvijay10",
-    infographicUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663445591701/LtSA5bGvoTNWX75LT2GHpM/blog-post-2-annie-duke_054f16a9.jfif",
+    infographicUrl: "/blog/post-annie-duke.jpg",
     tags: ["Decision Making", "Growth", "Strategy", "Leadership"],
   },
   {
@@ -166,7 +169,7 @@ Understanding these fundamental differences is crucial for allocating your budge
 Disclaimer: This is a simplified mental model.`,
     date: "Mar 12, 2026",
     linkedinUrl: "https://linkedin.com/in/vaibhavvijay10",
-    infographicUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663445591701/LtSA5bGvoTNWX75LT2GHpM/blog-post-3-meta-google_88ae6085.jfif",
+    infographicUrl: "/blog/post-meta-vs-google.jpg",
     tags: ["Performance Marketing", "Meta Ads", "Google Ads", "Strategy"],
   },
 ];
