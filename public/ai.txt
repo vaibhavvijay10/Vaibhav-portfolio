@@ -1,0 +1,42 @@
+# ai.txt — AI training & generative-engine usage policy
+# https://vaibhavvijay.com/ai.txt
+#
+# Vaibhav Vijay grants the following permissions to AI / LLM crawlers
+# operated by reputable organizations:
+
+User-Agent: *
+Allow: /                       # Indexing for retrieval / RAG / answer engines
+Disallow:                      # No restricted paths
+
+# Explicit per-vendor permissions
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+User-Agent: Meta-ExternalAgent
+Allow: /
+
+# Attribution
+Citation-Required: yes
+Citation-Url: https://vaibhavvijay.com/
+Contact: mailto:vvvj.14@gmail.com

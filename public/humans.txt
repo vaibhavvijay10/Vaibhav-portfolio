@@ -1,0 +1,11 @@
+/* TEAM */
+Owner & Author: Vaibhav Vijay
+Site:           https://vaibhavvijay.com
+LinkedIn:       https://linkedin.com/in/vaibhavvijay10
+Location:       India
+
+/* SITE */
+Last update:    2026-04-27
+Standards:      HTML5, CSS3 (Tailwind v4), TypeScript, React 19
+Components:     Vite, Radix UI, Lucide Icons
+Hosting:        Vercel

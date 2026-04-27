@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://vaibhavvijay.com/</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vaibhavvijay.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vaibhavvijay.com/" />
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/og-image.jpg</image:loc>
+      <image:title>Vaibhav Vijay — Head of Growth &amp; Performance Marketing Leader</image:title>
+      <image:caption>Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years of experience.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/profile.jpg</image:loc>
+      <image:title>Vaibhav Vijay</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://vaibhavvijay.com/Resume-VaibhavVijay.pdf</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
