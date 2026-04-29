@@ -13,6 +13,61 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "8",
+    slug: "ask-an-agent-your-own-name",
+    title: "Go Ask an Agent Your Own Name. I Dare You.",
+    excerpt:
+      "Open ChatGPT and search your own name. If the answer is vague or wrong, you just found the biggest blind spot in your personal brand. Here is how I rebuilt mine for the agents quietly deciding who gets the call.",
+    content: `Open ChatGPT right now. Type "Who is [your name]?" and see what comes back.
+
+If the answer is vague, generic, or completely wrong, you just discovered the biggest blind spot in your personal brand.
+
+I tried this on myself a few weeks ago. The result was embarrassing. Years of work, real results, clients I had actually helped. ChatGPT had almost nothing to say. Claude drew a blank. Perplexity gave me two lines.
+
+So I rebuilt everything. Not for Google. For the agents that are quietly becoming the first place people go when they need to find or shortlist a professional.
+
+I rewrote content as answers instead of headlines. Structured everything so crawlers could read it without running JavaScript. Wrote FAQs the way a colleague would explain my work in conversation. Took about a week.
+
+The experiment is still running. I will share what actually worked and what did not once the data is in. Building in public means sharing the misses too.
+
+But here is the uncomfortable part regardless: your LinkedIn looks great, your website is sharp. If ChatGPT, Claude, and Perplexity have nothing to say about you, you are invisible in the conversations that increasingly decide who gets the call.
+
+Try it. Right now. The answer might sting.
+
+What came back when you searched yourself?`,
+    date: "Apr 29, 2026",
+    isoDate: "2026-04-29",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_personalbranding-growthmarketing-aeo-activity-7455047243633438720-PnNs",
+    infographicUrl: "/blog/post-ask-an-agent.webp",
+    tags: ["AEO", "GEO", "Personal Branding", "AI Search"],
+  },
+  {
+    id: "7",
+    slug: "apple-search-ads-the-hidden-channel",
+    title:
+      "The Channel Your Competitors Forgot About Is Sitting Inside the App Store",
+    excerpt:
+      "Most teams obsess over Meta and Google UAC, then ignore the place where their highest intent users are literally searching for the product. Here is what happened when we rebuilt Apple Search Ads from scratch — 2x retention, 40% higher 90-day LTV.",
+    content: `There is a strange gap in most mobile growth strategies. Teams obsess over Meta creative testing, pour budget into Google UAC, and fine tune programmatic bids across a dozen DSPs. Then they completely ignore the place where their highest intent users are literally searching for their product.
+
+Apple Search Ads sits at the bottom of the funnel in a way no other channel can replicate. These are users who have opened the App Store, typed a query, and are actively looking to download. The intent signal is as strong as it gets.
+
+When I took over the mobile growth mix for an app, ASA was the last priority. Small budget, generic keywords, zero creative customization. We rebuilt it from scratch: exact match keywords mapped to Custom Product Pages, bid adjustments by device and time of day, and measurement tied to 90 day LTV instead of just install volume.
+
+The results told the story. Users acquired through ASA retained at nearly 2x the rate of broader channels, and their 90 day LTV was 40% higher than the portfolio average. The channel went from afterthought to our most efficient acquisition source.
+
+Not every channel needs to be your biggest. Some just need to be your smartest.
+
+Is there a high intent channel in your stack that your team is underinvesting in because it "seems too small"?`,
+    date: "Apr 28, 2026",
+    isoDate: "2026-04-28",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_mobilegrowth-applesearchads-appstoreoptimization-activity-7454726098262609920-yFxU",
+    infographicUrl: "/blog/post-apple-search-ads.webp",
+    tags: ["Apple Search Ads", "Mobile Growth", "ASO", "User Acquisition"],
+  },
+  {
     id: "4",
     slug: "structured-generosity-igaming-ltv",
     title: "I Spent Years in iGaming. The Biggest Lesson Had Nothing to Do With Odds",

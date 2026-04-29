@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://vaibhavvijay.com/</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://vaibhavvijay.com/" />
@@ -18,6 +18,28 @@
     <image:image>
       <image:loc>https://vaibhavvijay.com/profile.jpg</image:loc>
       <image:title>Vaibhav Vijay</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/ask-an-agent-your-own-name</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-ask-an-agent.webp</image:loc>
+      <image:title>Go Ask an Agent Your Own Name. I Dare You.</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/apple-search-ads-the-hidden-channel</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-apple-search-ads.webp</image:loc>
+      <image:title>The High-Intent Edge — Mastering Apple Search Ads</image:title>
     </image:image>
   </url>
 
