@@ -444,3 +444,153 @@ Open a new chat in your Claude Max account. As your **first message**, paste:
 Claude will read `HANDOFF.md` first via the file system, then respond with full context. The new session inherits everything: architecture, decisions, your communication preferences, and what's pending.
 
 If the new Claude doesn't have file-system access, paste the contents of this `HANDOFF.md` directly as the first message. Same outcome.
+
+---
+
+# Addendum: things almost forgotten (2026-04-29)
+
+After reviewing the original HANDOFF.md, ran a real audit. Seven gaps that would have caused friction in a future session — captured below.
+
+## A. Confirmed dev tooling on the user's Windows machine
+
+Verified by running `--version` on each:
+
+| Tool | Version | Notes |
+|---|---|---|
+| Node.js | **25.6.0** | At `C:\Program Files\nodejs\node.exe` |
+| npm | **11.8.0** | At `C:\Program Files\nodejs\npm` |
+| git | **2.53.0.windows.2** | Git Credential Manager configured for GitHub auth |
+| curl | **8.18.0** (Schannel + brotli + zstd) | Windows-native, supports `-sI`, `-L`, etc. |
+| Python | ❌ **NOT INSTALLED** | The `python.exe` and `python3.exe` in `WindowsApps` are Microsoft Store stubs that redirect to install. Don't try to use them. If a Python script is needed, use Node + a JS library (sharp, pdfkit, etc.) instead. |
+| GitHub CLI (`gh`) | ❌ **NOT INSTALLED** | Use raw `curl` against the GitHub API or push the user toward github.com UI for repo settings |
+| ImageMagick | ❌ **NOT INSTALLED** | For image work, install `sharp` ad-hoc: `npm install --no-save sharp`, run, then `rm -rf node_modules/sharp` |
+
+Shell context: the user's Bash sessions run inside a Git for Windows / mingw64 environment. `/tmp` maps to `C:\tmp` (which doesn't exist by default!). For temp files, use `process.env.TEMP` or `process.env.TMP` in Node — these resolve correctly to `C:\Users\91998\AppData\Local\Temp\`.
+
+## B. Account identifiers (NO passwords stored; user must log in manually)
+
+| Platform | Login URL | Username/email | Login method |
+|---|---|---|---|
+| GitHub | https://github.com/login | `vaibhavvijay10` | Browser auth (Git Credential Manager handles git CLI) |
+| Vercel | https://vercel.com/login | `vaibhavvijay10` (linked to GitHub) | Continue with GitHub |
+| Google (GSC, Gmail, Analytics) | https://accounts.google.com | `vvvj.14@gmail.com` | Google OAuth, likely 2FA on |
+| Bing Webmaster Tools | https://www.bing.com/webmasters | Linked via "Import from Google Search Console" | Microsoft account or Google sign-in |
+| Hostinger | https://hpanel.hostinger.com | `vvvj.14@gmail.com` | Email + password |
+| LinkedIn | https://www.linkedin.com/login | profile is `linkedin.com/in/vaibhavvijay10` | Email + password |
+
+If the new Claude needs to operate on any of these, it can only **guide the user** — passwords are never stored. The user logs in themselves and shares screenshots.
+
+## C. Critical "do not delete" items
+
+If any of these go away, the site breaks or loses verification status. Documented loudly:
+
+| Item | Where | If deleted |
+|---|---|---|
+| **A record `@ → 216.198.79.1`** in Hostinger DNS | hpanel → DNS | `vaibhavvijay.com` stops resolving. SITE GOES DOWN. |
+| **CNAME record `www → cname.vercel-dns.com`** | Hostinger DNS | `www.vaibhavvijay.com` stops working (apex still works) |
+| **TXT record `@ → google-site-verification=vjx1sz9Sng2O4-cKiS4K14YXpJmX_XRwsMtPdfqVYrg`** | Hostinger DNS | Google Search Console loses verification, sitemap submission breaks |
+| Vercel preview URL `vaibhav-portfolio-flame.vercel.app` | Vercel project | Currently active fallback. Do not "remove" it from Vercel — it's auto-managed. |
+| `main` branch on GitHub | github.com | Vercel watches `main`. Renaming or deleting kills auto-deploys. |
+| `package.json` `"build"` script chaining `vite build && node scripts/prerender-blog.mjs` | repo root | Removing the prerender chain means `/blog/[slug]` URLs lose their per-post HTML — back to SPA-only, AEO regression |
+
+DNS verified live as of 2026-04-29: A record resolves to `216.198.79.1`, CNAME resolves to `cname.vercel-dns.com`, TXT contains the GSC verification token. Re-run `nslookup -type=TXT vaibhavvijay.com 8.8.8.8` to verify at any time.
+
+## D. Disaster recovery / how to roll back
+
+| Scenario | Recovery |
+|---|---|
+| Bad deploy breaks the live site | Vercel dashboard → project → **Deployments** tab → find the last good deploy → ⋮ menu → **"Promote to production"**. Site flips back in seconds. No git revert needed. |
+| Accidentally delete a file locally | `git checkout -- path/to/file` (restores from last commit). If already committed: `git revert <commit-sha>`. |
+| Vercel account deleted | Code is on GitHub, can re-import to a new Vercel account in 5 min. DNS records still point at Vercel's IP — once re-deployed, site works again. |
+| GitHub repo deleted | Local copy at `C:\Users\91998\Desktop\Vaibhav's Website\vaibhav-portfolio-vercel\` has full git history. Can push to a new remote. |
+| Hostinger account suspended | Domain becomes inaccessible until billing fixed. Vercel preview URL (`vaibhav-portfolio-flame.vercel.app`) still works. |
+| Domain expires | Auto-renewal is ON, expiry **2026-09-02**. If billing fails: 30-day grace, then 30-day redemption (with fee), then drop. Set a calendar reminder for 2026-08-01. |
+
+## E. Platform constraints and limits
+
+### Vercel Hobby plan (free tier — what we're on)
+
+| Limit | Value | When it matters |
+|---|---|---|
+| Web Analytics events | **2,500 / month** | A modest portfolio is fine. If a launch post drives 3,000+ unique visits in one month, you'll see partial data only. Upgrade to Pro ($20/mo) doubles this and removes the cap on most features. |
+| Bandwidth | **100 GB / month** | At ~16 KB HTML + ~115 KB JS per visit, that's ~750k page views before hitting cap |
+| Build minutes | **6,000 / month** | Each deploy uses ~15 sec, so ~24,000 deploys before cap. Not a real constraint. |
+| Serverless function execution | **100k invocations / month** | We don't use serverless functions. |
+| Custom domains per project | unlimited | |
+| HTTPS / SSL | free, auto-renew | |
+
+### Google Search Console
+
+- **URL Inspection "Request Indexing"** rate limit: ~10 URLs / day per property. Use sparingly during the launch window.
+- Search Performance data has a **2-day lag** — today's clicks show up day after tomorrow.
+
+### Bing Webmaster Tools
+
+- Sitemaps are recrawled on Bing's own schedule, ~3–5 days for new URLs.
+- Bing's index powers **ChatGPT search, Microsoft Copilot, DuckDuckGo, Yahoo**.
+
+## F. Content workflow constraint — there is NO CMS
+
+All blog content lives in `src/data/blog-posts.ts`. Adding/editing requires:
+1. Editing the TypeScript file directly
+2. `git commit && git push`
+3. Vercel auto-deploys
+
+There is **no admin panel, no Notion sync, no Sanity/Contentful integration, no markdown drop folder**. This is intentional (zero ops, zero cost), but means content updates require AI assistance or developer comfort. If the user ever wants to write articles without touching code, that's a separate build (Notion API + ISR, or migrating to a CMS-backed framework like Astro Content Collections or Next.js + Sanity).
+
+## G. The two reference PDFs are NOT in git
+
+Located at:
+- `C:\Users\91998\Desktop\Vaibhav's Website\SEO-GEO-AEO-Strategy.pdf`
+- `C:\Users\91998\Desktop\Vaibhav's Website\How-We-Built-The-Site.pdf`
+
+**These are personal references, not site assets.** They were intentionally placed in the parent folder, NOT in the repo. They will not be backed up by GitHub. If you want them backed up, copy them to OneDrive/Drive/Dropbox manually, or move them to the project's `public/` folder and reference from a private route like `/playbook` (potential future addition).
+
+## H. Other minor things worth knowing
+
+- **No domain email.** `vaibhav@vaibhavvijay.com` doesn't exist. There are no MX records on the domain. If the user ever wants email at the domain, Hostinger offers Business Email (paid) or Google Workspace can be linked — adds 4–5 MX records to DNS.
+- **Public PII on the site (by design):** email `vvvj.14@gmail.com`, phone/WhatsApp `+91-99822-67285`, LinkedIn `linkedin.com/in/vaibhavvijay10`. These appear in the footer, contact section, and JSON-LD. The user has explicitly chosen to publish these for inbound consulting leads. If you ever want to remove or change them, search `99822` and `vvvj.14` across `src/**` and `index.html`.
+- **No error tracking / monitoring.** No Sentry, no Datadog, no Vercel Errors integration. For a portfolio this is fine — if something breaks, the user finds out via friends visiting. If the site ever becomes business-critical, add Sentry (free tier covers personal use).
+- **Repo visibility unverified.** I don't have GitHub CLI access to confirm whether the repo is public or private. The user can check at https://github.com/vaibhavvijay10/Vaibhav-portfolio (look for the lock icon next to the repo name). If public, anyone can see the code (this is fine — it's a personal portfolio, not a secret). Sensitive items like API keys would need to move to Vercel Environment Variables; currently there are zero env vars in the project.
+- **No `.env` file exists.** Build does not require any environment variables. `.gitignore` would catch one if added, but currently there's nothing to gitignore.
+- **Wouter routing quirk.** `ScrollToTop.tsx` uses `behavior: "instant"` (not "smooth") on route changes — intentional, smooth-scroll on a navigation feels janky vs an instant snap. Hash anchors (`/#about`) skip the scroll reset and rely on `HomePage.tsx`'s hash-detection effect.
+- **Build output is `dist/`** (not `build/` or `out/`). If a tool ever asks "where is your build output?", it's `dist`.
+
+## I. Single-page reference: every URL the user might need
+
+```
+SITE URLs
+  Production:        https://vaibhavvijay.com
+  www redirect:      https://www.vaibhavvijay.com (308 -> apex)
+  Vercel preview:    https://vaibhav-portfolio-flame.vercel.app
+  Sitemap:           https://vaibhavvijay.com/sitemap.xml
+  Robots:            https://vaibhavvijay.com/robots.txt
+  llms.txt:          https://vaibhavvijay.com/llms.txt
+
+CODE / DEPLOY
+  GitHub repo:       https://github.com/vaibhavvijay10/Vaibhav-portfolio
+  Vercel dashboard:  https://vercel.com/dashboard
+  Vercel project:    https://vercel.com/vaibhavvijay10/vaibhav-portfolio (probably; varies by account)
+
+DOMAIN
+  Hostinger:         https://hpanel.hostinger.com (Domains -> vaibhavvijay.com -> DNS)
+
+SEO / SEARCH
+  Google Search Console:    https://search.google.com/search-console
+  Bing Webmaster Tools:     https://www.bing.com/webmasters
+  Schema validator:         https://validator.schema.org
+  Google Rich Results Test: https://search.google.com/test/rich-results
+  PageSpeed Insights:       https://pagespeed.web.dev
+
+SOCIAL CACHE-PRIMING
+  LinkedIn Post Inspector:  https://www.linkedin.com/post-inspector/
+  Facebook Sharing Debug:   https://developers.facebook.com/tools/debug/
+  Twitter Card Validator:   https://cards-dev.twitter.com/validator
+
+ANALYTICS
+  Vercel Analytics:    https://vercel.com/dashboard -> project -> Analytics tab
+  Vercel Speed Insights: https://vercel.com/dashboard -> project -> Speed Insights tab
+  Google Search Console -> Performance: query data, impressions, CTR
+  Bing Webmaster Tools -> AI Performance (beta): when ChatGPT/Copilot cites you
+```
+
