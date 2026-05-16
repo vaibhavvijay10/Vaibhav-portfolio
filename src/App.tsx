@@ -8,11 +8,13 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
 
-// Route-level code splitting: HomePage and BlogPostPage are downloaded only
-// when the user actually visits that route. Cuts the initial JS bundle that
-// every first-paint depends on.
+// Route-level code splitting: each page is downloaded only when its route
+// is visited. Keeps the initial JS bundle minimal for first paint.
 const HomePage = lazy(() => import("./pages/HomePage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const TopicPage = lazy(() => import("./pages/TopicPage"));
 
 export default function App() {
   return (
@@ -28,6 +30,11 @@ export default function App() {
               <Route path="/blog/:slug">
                 {(params) => <BlogPostPage slug={params.slug} />}
               </Route>
+              <Route path="/topics/:slug">
+                {(params) => <TopicPage slug={params.slug} />}
+              </Route>
+              <Route path="/about" component={AboutPage} />
+              <Route path="/services" component={ServicesPage} />
               <Route path="/" component={HomePage} />
               <Route>
                 <HomePage />

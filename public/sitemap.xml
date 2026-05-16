@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://vaibhavvijay.com/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://vaibhavvijay.com/" />
@@ -19,6 +19,48 @@
       <image:loc>https://vaibhavvijay.com/profile.jpg</image:loc>
       <image:title>Vaibhav Vijay</image:title>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/about</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/services</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/topics/ai-and-aeo</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/topics/performance-marketing</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/topics/retention-and-lifecycle</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/topics/automation-and-operations</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <url>

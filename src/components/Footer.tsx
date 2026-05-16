@@ -21,26 +21,34 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 container max-w-4xl mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Vaibhav Vijay</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Head of Growth & Performance Marketing Leader
+              Head of Growth &amp; Performance Marketing Leader
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Pages */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Quick Links</h4>
+            <h4 className="font-semibold">Pages</h4>
             <ul className="space-y-2 text-gray-400">
-              {["about", "experience", "skills", "contact"].map((link) => (
-                <li key={link}>
-                  <a href={`#${link}`} className="hover:text-accent transition-colors capitalize text-sm">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li><a href="/about" className="hover:text-accent transition-colors text-sm">About</a></li>
+              <li><a href="/services" className="hover:text-accent transition-colors text-sm">Services</a></li>
+              <li><a href="/#blog" className="hover:text-accent transition-colors text-sm">Articles</a></li>
+              <li><a href="/#contact" className="hover:text-accent transition-colors text-sm">Contact</a></li>
+            </ul>
+          </div>
+
+          {/* Topics */}
+          <div className="space-y-4">
+            <h4 className="font-semibold">Topics</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li><a href="/topics/ai-and-aeo" className="hover:text-accent transition-colors text-sm">AI &amp; AEO</a></li>
+              <li><a href="/topics/performance-marketing" className="hover:text-accent transition-colors text-sm">Performance Marketing</a></li>
+              <li><a href="/topics/retention-and-lifecycle" className="hover:text-accent transition-colors text-sm">Retention &amp; CRM</a></li>
+              <li><a href="/topics/automation-and-operations" className="hover:text-accent transition-colors text-sm">Automation</a></li>
             </ul>
           </div>
 

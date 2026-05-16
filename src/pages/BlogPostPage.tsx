@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Calendar } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getPostBySlug } from "@/data/blog-posts";
+import { getRelatedPosts } from "@/data/topics";
 
 interface Props {
   slug: string;
@@ -46,6 +47,7 @@ function injectJsonLd(id: string, data: object) {
 export default function BlogPostPage({ slug }: Props) {
   const [, navigate] = useLocation();
   const post = getPostBySlug(slug);
+  const relatedPosts = post ? getRelatedPosts(post, 3) : [];
 
   // Per-post head updates (title, meta, canonical, OG tags, BlogPosting JSON-LD)
   useEffect(() => {
@@ -428,6 +430,48 @@ export default function BlogPostPage({ slug }: Props) {
                 </div>
               </div>
             </div>
+
+            {/* Related articles — boosts pages/visit + internal link weight + topical relevance signal */}
+            {relatedPosts.length > 0 && (
+              <section className="mt-16 pt-10 border-t border-border">
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Related articles
+                </h2>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {relatedPosts.map((rp) => (
+                    <Link
+                      key={rp.slug}
+                      to={`/blog/${rp.slug}`}
+                      className="group block bg-white hover:bg-secondary/30 border border-border/50 hover:border-accent/50 rounded-xl overflow-hidden transition-all"
+                    >
+                      {rp.infographicUrl && (
+                        <div className="relative w-full h-32 overflow-hidden bg-secondary">
+                          <img
+                            src={rp.infographicUrl}
+                            alt={rp.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="p-4">
+                        <p className="text-xs text-muted-foreground mb-2">
+                          <time dateTime={rp.isoDate}>{rp.date}</time>
+                        </p>
+                        <h3 className="text-base font-bold text-foreground leading-tight group-hover:text-accent transition-colors mb-2 line-clamp-3">
+                          {rp.title}
+                        </h3>
+                        <span className="inline-flex items-center gap-1 text-accent text-sm font-semibold">
+                          Read
+                          <ArrowRight size={12} aria-hidden="true" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
         </article>
 

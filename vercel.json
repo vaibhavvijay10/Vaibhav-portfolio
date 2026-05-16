@@ -8,6 +8,9 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
+    { "source": "/topics/:slug", "destination": "/topics/:slug/index.html" },
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/services", "destination": "/services/index.html" },
     { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
   ],
   "headers": [
@@ -51,6 +54,13 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600" },
         { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/rss.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }
       ]
     },
     {
