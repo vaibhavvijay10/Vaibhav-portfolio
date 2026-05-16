@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -6,8 +7,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
-import HomePage from "./pages/HomePage";
-import BlogPostPage from "./pages/BlogPostPage";
+
+// Route-level code splitting: HomePage and BlogPostPage are downloaded only
+// when the user actually visits that route. Cuts the initial JS bundle that
+// every first-paint depends on.
+const HomePage = lazy(() => import("./pages/HomePage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 
 export default function App() {
   return (
@@ -18,15 +23,17 @@ export default function App() {
           <ScrollToTop />
           <Analytics />
           <SpeedInsights />
-          <Switch>
-            <Route path="/blog/:slug">
-              {(params) => <BlogPostPage slug={params.slug} />}
-            </Route>
-            <Route path="/" component={HomePage} />
-            <Route>
-              <HomePage />
-            </Route>
-          </Switch>
+          <Suspense fallback={null}>
+            <Switch>
+              <Route path="/blog/:slug">
+                {(params) => <BlogPostPage slug={params.slug} />}
+              </Route>
+              <Route path="/" component={HomePage} />
+              <Route>
+                <HomePage />
+              </Route>
+            </Switch>
+          </Suspense>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

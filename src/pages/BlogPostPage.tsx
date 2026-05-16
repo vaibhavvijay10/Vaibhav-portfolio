@@ -279,7 +279,7 @@ export default function BlogPostPage({ slug }: Props) {
               <span>By Vaibhav Vijay</span>
             </div>
 
-            {/* Hero image */}
+            {/* Hero image — the LCP element. Eager + high priority for fastest first paint. */}
             {post.infographicUrl && (
               <div className="rounded-xl overflow-hidden mb-10 border border-border/50 shadow-sm">
                 <img
@@ -288,6 +288,8 @@ export default function BlogPostPage({ slug }: Props) {
                   className="w-full h-auto"
                   loading="eager"
                   decoding="async"
+                  // @ts-expect-error — fetchpriority is a valid HTML attribute that React 19 supports but @types/react hasn't typed yet
+                  fetchpriority="high"
                 />
               </div>
             )}
