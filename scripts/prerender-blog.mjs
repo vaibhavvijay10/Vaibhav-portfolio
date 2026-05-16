@@ -337,27 +337,52 @@ function buildBodyPreview(post) {
             ? `<img src="${escapeHtml(post.infographicUrl)}" alt="${safeTitle}" style="max-width:100%;height:auto;border-radius:8px;margin:1.5rem 0;" />`
             : ""
         }
-        <div>${safeContent}</div>
-        ${
-          (post.gallery ?? []).length > 0
-            ? `<div style="margin-top:2rem;">${(post.gallery ?? [])
-                .map(
-                  (img) =>
-                    `<figure style="margin:1.5rem 0;"><img src="${escapeHtml(
-                      img.url
-                    )}" alt="${escapeHtml(img.alt ?? post.title)}" style="max-width:100%;height:auto;border-radius:8px;" />${
-                      img.alt
-                        ? `<figcaption style="font-size:0.875rem;color:#4b5563;margin-top:0.5rem;">${escapeHtml(img.alt)}</figcaption>`
-                        : ""
-                    }</figure>`
-                )
-                .join("")}</div>`
-            : ""
-        }
+        ${renderInterleavedBody(post)}
         <p><a href="${escapeHtml(post.linkedinUrl)}">Read &amp; engage on LinkedIn</a></p>
         <p><a href="${url}">Permalink</a></p>
       </article>
     </noscript>`;
+}
+
+/**
+ * Renders the article body with gallery images interleaved between
+ * content paragraphs (so images don't stack back-to-back at the end).
+ * Mirrors the React component's distribution algorithm exactly.
+ */
+function renderInterleavedBody(post) {
+  const paragraphs = post.content.split(/\n\n+/);
+  const gallery = post.gallery ?? [];
+
+  const imagePositions =
+    gallery.length > 0
+      ? gallery.map((_, i) =>
+          Math.floor(((i + 1) * paragraphs.length) / (gallery.length + 1))
+        )
+      : [];
+
+  const figureFor = (img) =>
+    `<figure style="margin:2rem 0;"><img src="${escapeHtml(
+      img.url
+    )}" alt="${escapeHtml(img.alt ?? post.title)}" style="max-width:100%;height:auto;border-radius:8px;" />${
+      img.alt
+        ? `<figcaption style="font-size:0.875rem;color:#4b5563;margin-top:0.5rem;">${escapeHtml(img.alt)}</figcaption>`
+        : ""
+    }</figure>`;
+
+  const parts = [];
+  paragraphs.forEach((p, pIdx) => {
+    parts.push(
+      `<p style="margin:1rem 0;line-height:1.6;">${escapeHtml(p).replace(/\n/g, "<br>")}</p>`
+    );
+    imagePositions.forEach((pos, gIdx) => {
+      if (pos === pIdx + 1) parts.push(figureFor(gallery[gIdx]));
+    });
+  });
+  // Tail-append any images whose computed position lands past the last paragraph
+  imagePositions.forEach((pos, gIdx) => {
+    if (pos >= paragraphs.length && pos > 0) parts.push(figureFor(gallery[gIdx]));
+  });
+  return parts.join("");
 }
 
 async function main() {

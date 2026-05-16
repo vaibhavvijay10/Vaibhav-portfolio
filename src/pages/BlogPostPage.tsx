@@ -292,37 +292,84 @@ export default function BlogPostPage({ slug }: Props) {
               </div>
             )}
 
-            {/* Content */}
+            {/* Content — paragraphs interleaved with gallery images for natural rhythm */}
             <div className="prose prose-lg max-w-none">
-              <div className="text-lg text-foreground/90 whitespace-pre-wrap leading-relaxed">
-                {post.content}
-              </div>
-            </div>
+              {(() => {
+                const paragraphs = post.content.split(/\n\n+/);
+                const gallery = post.gallery ?? [];
+                // Distribute images evenly: image i appears after paragraph at
+                // position floor((i+1) * paragraphs.length / (gallery.length + 1))
+                const imagePositions =
+                  gallery.length > 0
+                    ? gallery.map((_, i) =>
+                        Math.floor(((i + 1) * paragraphs.length) / (gallery.length + 1))
+                      )
+                    : [];
 
-            {/* Gallery (additional images, if present) */}
-            {post.gallery && post.gallery.length > 0 && (
-              <div className="mt-12 space-y-6">
-                {post.gallery.map((img, i) => (
-                  <figure
-                    key={i}
-                    className="rounded-xl overflow-hidden border border-border/50 shadow-sm bg-secondary/30"
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.alt ?? post.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-auto"
-                    />
-                    {img.alt && (
-                      <figcaption className="px-4 py-3 text-sm text-muted-foreground bg-white border-t border-border/50">
-                        {img.alt}
-                      </figcaption>
-                    )}
-                  </figure>
-                ))}
-              </div>
-            )}
+                const elements: React.ReactNode[] = [];
+                paragraphs.forEach((p, pIdx) => {
+                  elements.push(
+                    <p
+                      key={`p-${pIdx}`}
+                      className="text-lg text-foreground/90 leading-relaxed whitespace-pre-wrap mb-6"
+                    >
+                      {p}
+                    </p>
+                  );
+                  // After this paragraph, insert any gallery images scheduled for this slot
+                  imagePositions.forEach((pos, gIdx) => {
+                    if (pos === pIdx + 1) {
+                      const img = gallery[gIdx];
+                      elements.push(
+                        <figure
+                          key={`img-${gIdx}`}
+                          className="my-10 rounded-xl overflow-hidden border border-border/50 shadow-sm bg-secondary/30"
+                        >
+                          <img
+                            src={img.url}
+                            alt={img.alt ?? post.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-auto"
+                          />
+                          {img.alt && (
+                            <figcaption className="px-4 py-3 text-sm text-muted-foreground bg-white border-t border-border/50">
+                              {img.alt}
+                            </figcaption>
+                          )}
+                        </figure>
+                      );
+                    }
+                  });
+                });
+                // Safety: append any image whose position landed past the last paragraph
+                imagePositions.forEach((pos, gIdx) => {
+                  if (pos >= paragraphs.length && pos > 0) {
+                    const img = gallery[gIdx];
+                    elements.push(
+                      <figure
+                        key={`img-tail-${gIdx}`}
+                        className="my-10 rounded-xl overflow-hidden border border-border/50 shadow-sm bg-secondary/30"
+                      >
+                        <img
+                          src={img.url}
+                          alt={img.alt ?? post.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-auto"
+                        />
+                        {img.alt && (
+                          <figcaption className="px-4 py-3 text-sm text-muted-foreground bg-white border-t border-border/50">
+                            {img.alt}
+                          </figcaption>
+                        )}
+                      </figure>
+                    );
+                  }
+                });
+                return elements;
+              })()}
+            </div>
 
             {/* CTA cluster */}
             <div className="mt-12 pt-8 border-t border-border space-y-6">

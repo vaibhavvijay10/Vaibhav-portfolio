@@ -16,6 +16,112 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "15",
+    slug: "shipped-ipl-campaign-without-a-team",
+    title:
+      "R.I.P. Marketing — I Shipped an Entire IPL Campaign Without a Designer, Copywriter, or Brief",
+    excerpt:
+      "Shipped a full IPL campaign last week for a D2C nutrition brand. Product photography, ad creatives, campaign copy, brand positioning — the entire package. No agency retainer. No four-week timeline. No 40-page brief. Just me, my marketing playbook, and an AI tool that finally works the way I always wanted tools to work.",
+    content: `I shipped a full IPL campaign last week for a D2C nutrition brand. Product photography, ad creatives, campaign copy, brand positioning, the entire package. No agency retainer. No four week timeline. No 40 page brief that goes through six rounds of feedback before a single pixel gets designed.
+
+Just me, my marketing playbook, and an AI tool that finally works the way I always wanted tools to work.
+
+Here is what I mean. Most AI creative tools give you random outputs and call it "content." This one is different because it lets me architect the brand first. I built the entire brand DNA inside the platform: positioning, tone of voice, colour palette, visual aesthetic, audience segments, competitive differentiation. Every strategic decision I would normally spend weeks aligning a team around, I codified into the system upfront. That is not the AI doing strategy. That is years of marketing experience being translated into a framework the AI can execute against.
+
+The IPL campaign was the proof of concept. I defined the creative direction: position the product as the high protein fuel for cricket season, match the energy of the final overs, keep the visual language earthy and premium. The tool generated campaign ready creatives with product shots, wrote the headline, and delivered assets I could deploy the same day. But the reason those outputs were good is not because the AI is magic. It is because the brand architecture I fed it was tight. Garbage strategy in, garbage creative out. That equation has not changed.
+
+What has changed is the speed at which a sharp strategist can move. I used to need a photographer, a designer, a copywriter, and a project manager to ship what I now ship in an afternoon. That does not make those roles irrelevant. It means a marketer who understands brand strategy, performance metrics, and automation can now operate as a full growth engine for early stage brands that cannot afford a six person team.
+
+That is the shift I am building my practice around. One strategist who understands the entire stack, from positioning to creative to paid distribution to retention, paired with the right AI tools, can deliver what used to require a mid sized agency. Not because the AI replaces the thinking. Because it removes the bottleneck between the thinking and the execution.
+
+If you are a D2C founder or a marketing lead still running the old playbook, I would love to show you what the new one looks like.`,
+    date: "May 14, 2026",
+    isoDate: "2026-05-14",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_ripmarketing-aimarketing-d2cbranding-activity-7461071463731646464-bLYP",
+    infographicUrl: "/blog/post-ipl-rip-marketing.webp",
+    gallery: [
+      {
+        url: "/blog/post-ipl-business-dna.webp",
+        alt: "The brand DNA I built inside the tool — positioning, tagline, brand values, aesthetic and tone of voice codified upfront before any creative was generated.",
+      },
+      {
+        url: "/blog/post-ipl-fuel-for-final-overs.webp",
+        alt: "The output — 'Fuel for the final overs' campaign creative, generated from the brand DNA and the creative direction in a single afternoon.",
+      },
+    ],
+    tags: ["AI Marketing", "D2C Branding", "Campaign Strategy", "BuildInPublic"],
+  },
+  {
+    id: "14",
+    slug: "anthropic-vs-openai-the-ai-sale",
+    title: "RIP to Your Current Marketing Strategy",
+    excerpt:
+      "Anthropic just passed OpenAI in business adoption. The fallout was immediate — free months from OpenAI, 50% usage bumps from Claude. If you are in performance marketing, this is your moment. But the sale prices are not permanent. Here is what to do before the real prices arrive.",
+    content: `Dead is the era of relying on just one AI giant to carry your brand.
+
+Today Anthropic officially passed OpenAI in business adoption. The fallout was immediate and chaotic. We are witnessing what looks like a Big Billion Day sale for Artificial Intelligence.
+
+OpenAI is offering free months to switchers. Anthropic Claude is increasing usage limits by 50 percent till July 13th.
+
+If you are in performance marketing, this is your moment.
+
+Think about a standard marketing use case. You are scaling Meta Ads and trying to optimize your unit economics. Usually, generating that amount of creative and technical code would cost you a massive monthly salary for a senior engineer. Right now, you are getting that same output for a 200 dollar subscription. It is a massive win for your profit and loss statements.
+
+But here is the warning.
+
+These sale prices are not permanent. You are not just a customer, you are the training data. The tech giants are eating the costs of compute today because they want your adoption and your habits. We have seen this pattern before with Facebook Ads and Uber.
+
+The land grab happens first, the habit forms, and then the real prices arrive. You are currently enjoying a temporary exemption from reality.
+
+My advice is to use these tools like crazy while they are subsidized. Maximize your output today and build your projects. But do not get locked into one ecosystem. Keep your workflows flexible so you can migrate your data and prompts to a new model in an hour if the costs skyrocket.
+
+Enjoy the sale while it lasts but always keep your exit strategy ready.
+
+Are you sticking with OpenAI or moving to Claude today?`,
+    date: "May 13, 2026",
+    isoDate: "2026-05-13",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_artificialintelligence-marketingstrategy-activity-7460528078180675584-k79J",
+    infographicUrl: "/blog/post-anthropic-vs-openai.webp",
+    tags: ["AI", "Marketing Strategy", "OpenAI", "Anthropic"],
+  },
+  {
+    id: "13",
+    slug: "local-ai-agent-self-improving",
+    title:
+      "Breaking News: The #1 AI Agent Just Launched. It Was Not Built by OpenAI or Anthropic.",
+    excerpt:
+      "This Monday morning my team walked in to a ready-made brief — better than last week's, because the agent literally taught itself what I care about. An autonomous AI agent that lives on my server, remembers everything across sessions, writes its own skills, and gets smarter on its own. No subscription. No data leaving the machine.",
+    content: `This Monday morning, my team walked in to a ready made brief. Underperforming creatives flagged. Messaging gaps against three competitors identified. Fifteen ad copy variations drafted.
+
+Here is the part that stopped me cold. The brief was better than last Monday's. Not because I tweaked anything. Because the agent literally taught itself what I care about.
+
+It remembered that I always reject generic CTAs. It remembered I prefer competitor analysis structured by channel. It wrote a skill document after last week's run so it would never repeat the same mistake. No human intervened. It just got smarter on its own.
+
+This is not a chatbot. This is not a wrapper around an API. This is an autonomous agent that lives on my server, runs 24/7, remembers everything across sessions, and compounds in capability the longer it operates.
+
+Every cloud AI you have used resets to zero the moment you close the tab. This one builds memory. Writes its own reusable skills. Improves its own output over time. Like onboarding an employee who never forgets a single lesson.
+
+And none of my data left my machine. Not one byte sent to a third party server. No subscription. No API costs beyond the model I chose to run. Open source, MIT licensed, completely free.
+
+Beyond marketing, it took over confidential document reviews we could never send externally. It scraped competitor sites overnight. It cleaned messy data files that would have cost $50 per cloud run. It answers onboarding questions from our internal wiki without anything leaving the network.
+
+I message it on Telegram at 7am. Refine the output from Slack at 9. Push the final version to the team on Discord. One agent, every platform, full context retained.
+
+The cloud models still earn their place for frontier reasoning tasks. But defaulting everything to a paid API is like renting a supercomputer to send an email.
+
+The companies that figure out this hybrid split early will have a structural cost advantage that compounds every quarter.
+
+What would change in your workflow if your AI assistant remembered every task it ever completed and got measurably better each week?`,
+    date: "May 13, 2026",
+    isoDate: "2026-05-13",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_localai-opensource-growthmarketing-activity-7460298847857094656-6qvd",
+    infographicUrl: "/blog/post-ai-agent-self-improving.webp",
+    tags: ["Local AI", "Open Source", "Automation", "Productivity"],
+  },
+  {
     id: "11",
     slug: "death-of-the-funnel",
     title: "The Death of the Funnel",
@@ -42,6 +148,28 @@ If your marketing budget is still organized by funnel stage, what would it look 
       "https://www.linkedin.com/posts/vaibhavvijay10_marketingstrategy-customerjourney-growthmarketing-activity-7459497840013123584-RWbG",
     infographicUrl: "/blog/post-death-of-funnel.webp",
     tags: ["Marketing Strategy", "Attribution", "Customer Journey", "Brand Building"],
+  },
+  {
+    id: "12",
+    slug: "every-cfo-inside-igaming-war-room",
+    title: "Why Every CFO Should Spend a Month Inside an iGaming War Room",
+    excerpt:
+      "There is a room in every serious iGaming operation where marketing, product, risk, and finance make real-time decisions about player economics — every hour. The discipline this builds transfers to any business. Here is what changed in how I read a SaaS dashboard or e-commerce P&L.",
+    content: `There is a room in every serious iGaming operation where marketing, product, risk, and finance sit together and make real time decisions about player economics. Bonus costs, deposit trends, withdrawal velocity, fraud signals, LTV projections, all updating live. Decisions that would take most companies a quarterly planning cycle happen before lunch.
+
+This is not startup theatrics. This is what happens when your unit economics are measured in hours, not quarters. A bonus offer that looked profitable at 9 AM can turn negative by 2 PM if a specific player segment over indexes on withdrawals. A marketing campaign that drove 500 first time depositors means nothing if the 72 hour retention rate suggests 80% of them were bonus hunters.
+
+The discipline this forces on a team is extraordinary. You cannot hide behind annual averages when the data refreshes every hour. You cannot blame "market conditions" when the dashboard shows you exactly which cohort, which channel, and which creative drove the loss.
+
+I spent years in rooms like this. The financial rigour it built into my thinking transfers to every role I have taken since. When I look at a SaaS dashboard or an e-commerce P&L now, I instinctively ask questions that most growth teams do not consider until the quarterly review: what is the payback period by cohort, not by channel average? What is the marginal cost of the next 100 users from this source? At what point does scaling this campaign flip from profitable to dilutive?
+
+What would change in your business if your marketing and finance teams looked at the same live dashboard every morning?`,
+    date: "May 8, 2026",
+    isoDate: "2026-05-08",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_igaming-financialstrategy-growthmarketing-activity-7458506372360581121-thlp",
+    infographicUrl: "/blog/post-cfo-igaming-war-room.webp",
+    tags: ["iGaming", "Unit Economics", "Finance", "Performance Marketing"],
   },
   {
     id: "10",
