@@ -13,6 +13,33 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "9",
+    slug: "whatsapp-invoice-automation-india",
+    title:
+      "Every Small Business in India Loses Money the Same Way. I Fixed It for ₹470 a Month.",
+    excerpt:
+      "An Indian business running on a Finnish server for ₹470 a month. The invoice automation system I built for a Shark Tank funded client — and the hidden intelligence layer it quietly created from WhatsApp conversations.",
+    content: `One of my Shark Tank funded clients had the same problem every business in India has. Invoices buried in WhatsApp groups. Nobody remembering to chase payment after 30 days. The founder spending Sunday night in Excel asking "who owes us what?"
+
+So I built a system that watches the team's WhatsApp group around the clock. The moment someone drops an invoice PDF, it reads the document, pulls out the amount, due date, client, and GST details automatically. Every day at 1 PM, each point of contact gets a clean digest of their overdue invoices. One tap sends a follow up email directly to the vendor. WhatsApp reminders go out automatically to clients who have crossed their payment window.
+
+No generic SaaS. This is built around how their business actually operates. Their team, their workflows, their vendor relationships.
+
+But the part that surprised me most was the intelligence layer. Because every invoice flows through the system, it quietly builds a picture no spreadsheet ever could. Which sectors pay on time. Which clients stretch their credit cycle. Where receivables cluster. Seasonal patterns nobody noticed because the data was scattered across 14 WhatsApp groups. All of this just from the conversations the team is already having with clients.
+
+The whole thing runs on a single server sitting in Helsinki for ₹470 a month flat. An Indian business powered by a Finnish data centre. 2026 is wild.
+
+Here is my challenge to every business owner reading this: you are sitting on a goldmine of business intelligence inside your WhatsApp groups right now. Invoices, client conversations, payment patterns. It is all there. You are just not capturing it.
+
+What is the most painful manual process in your business that you have accepted as "just how it works"?`,
+    date: "Apr 30, 2026",
+    isoDate: "2026-04-30",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_buildinpublic-smallbusinessindia-invoicing-activity-7455473552201531392-lAIE",
+    infographicUrl: "/blog/post-invoice-automation.webp",
+    tags: ["Automation", "WhatsApp", "Small Business India", "BuildInPublic"],
+  },
+  {
     id: "8",
     slug: "ask-an-agent-your-own-name",
     title: "Go Ask an Agent Your Own Name. I Dare You.",
