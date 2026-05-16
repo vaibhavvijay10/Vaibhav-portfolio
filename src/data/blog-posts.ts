@@ -7,11 +7,68 @@ export interface BlogPost {
   date: string;
   isoDate: string;
   linkedinUrl: string;
+  /** Lead image — shown at the top of the article and as the og:image */
   infographicUrl?: string;
+  /** Additional images shown below the article body (LinkedIn carousels often have 3-10 images) */
+  gallery?: { url: string; alt?: string }[];
   tags: string[];
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    id: "11",
+    slug: "death-of-the-funnel",
+    title: "The Death of the Funnel",
+    excerpt:
+      "Awareness. Consideration. Conversion. We have been drawing the same triangle for 25 years — and it has never been less accurate than it is right now. What replaces the funnel is not another framework. It is a mental model built around moments of influence.",
+    content: `Awareness. Consideration. Conversion. We have been drawing the same triangle for 25 years. And it has never been less accurate than it is right now.
+
+The funnel assumes a linear path: someone discovers you, evaluates you, and then buys from you, in that order. But real customer journeys in 2026 look nothing like this.
+
+A person might discover your brand through a friend's story, research you through a language model, compare you on Reddit, see a retargeting ad that reminds them you exist, and finally convert through an organic search three weeks later.
+
+There is no top. There is no bottom. There is a web of touchpoints, some of which you control and most of which you do not.
+
+What replaces the funnel is not another neat framework. It is a mental model built around "moments of influence" rather than stages. The question shifts from "where is this customer in the funnel?" to "what is the next moment where we can add value or build trust, regardless of where they are?"
+
+When I started applying this to a brand's attribution and budgeting model, it changed everything. We stopped allocating budget by funnel stage and started allocating by influence moment. Brand mentions in community forums got investment alongside paid search. Content that answered long-tail questions got the same priority as bottom-funnel landing pages.
+
+The brand did not just see more conversions. It saw more resilient conversions: customers who stayed longer because they had multiple trust anchors, not just one click path.
+
+If your marketing budget is still organized by funnel stage, what would it look like reorganized around moments of influence?`,
+    date: "May 10, 2026",
+    isoDate: "2026-05-10",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_marketingstrategy-customerjourney-growthmarketing-activity-7459497840013123584-RWbG",
+    infographicUrl: "/blog/post-death-of-funnel.webp",
+    tags: ["Marketing Strategy", "Attribution", "Customer Journey", "Brand Building"],
+  },
+  {
+    id: "10",
+    slug: "fired-myself-from-23-tasks",
+    title: "I Listed Every Task I Do Twice a Week. Then I Fired Myself From 23 of Them.",
+    excerpt:
+      "Six months ago I listed every task I did more than twice a week. The list hit 23. Most of what I called 'work' was just moving information from one place to another. Here is how I fired myself from 23 of them — and what changed when I did.",
+    content: `Six months ago I sat down and listed every task I did more than twice a week. Invoice follow ups. Campaign reporting. Lead scoring updates. Slack summaries. Creative briefing templates. The list hit 23 items.
+
+Then I asked a simple question: which of these actually need my judgement, and which ones just need my fingers?
+
+The answer was uncomfortable. Most of what I called "work" was really just moving information from one place to another. Pulling data from a dashboard into a slide. Copying invoice details into a tracker. Formatting a weekly update that nobody reads past the first paragraph.
+
+So I started building. Nothing fancy. Small systems that do one thing well. An invoice lands in a WhatsApp group, the system reads it and logs every detail before anyone opens the chat. A campaign crosses its daily budget, my phone buzzes with a recommendation before I have had my coffee. A lead fills out a form at 2 AM, by morning it is scored, tagged, and sitting in the right pipeline. No code army. No six month roadmap. Just one person asking "why am I still doing this manually" enough times.
+
+The shift was not about saving time. It was about what I did with the time I got back. Instead of being the person who moves information, I became the person who decides what to do with it. Strategy sessions got deeper. Experiments got bolder. The team started coming to me with ideas instead of status updates.
+
+The uncomfortable truth for most growth leaders: if more than 30% of your week is spent on tasks a well written workflow could handle, you are not leading. You are operating.
+
+What is the one task you do every single week that you know should be automated but you have not gotten around to fixing?`,
+    date: "May 6, 2026",
+    isoDate: "2026-05-06",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_automation-growthmarketing-productivity-activity-7458002685691285504-krt0",
+    infographicUrl: "/blog/post-23-tasks.webp",
+    tags: ["Automation", "Productivity", "Workflow", "Leadership"],
+  },
   {
     id: "9",
     slug: "whatsapp-invoice-automation-india",
@@ -36,7 +93,12 @@ What is the most painful manual process in your business that you have accepted 
     isoDate: "2026-04-30",
     linkedinUrl:
       "https://www.linkedin.com/posts/vaibhavvijay10_buildinpublic-smallbusinessindia-invoicing-activity-7455473552201531392-lAIE",
-    infographicUrl: "/blog/post-invoice-automation.webp",
+    infographicUrl: "/blog/post-invoice-architecture.webp",
+    gallery: [
+      { url: "/blog/post-invoice-dashboard.webp", alt: "The main dashboard — ₹65.0L invoiced, ₹54.5L overdue, with ageing buckets and recent invoice list" },
+      { url: "/blog/post-invoice-analytics.webp", alt: "The intelligence layer — Marketing Insights view with revenue by sector pie chart and monthly trend" },
+      { url: "/blog/post-invoice-server-map.webp", alt: "The single VPS server in Helsinki powering the entire system for ₹470/month" },
+    ],
     tags: ["Automation", "WhatsApp", "Small Business India", "BuildInPublic"],
   },
   {

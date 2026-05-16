@@ -299,6 +299,31 @@ export default function BlogPostPage({ slug }: Props) {
               </div>
             </div>
 
+            {/* Gallery (additional images, if present) */}
+            {post.gallery && post.gallery.length > 0 && (
+              <div className="mt-12 space-y-6">
+                {post.gallery.map((img, i) => (
+                  <figure
+                    key={i}
+                    className="rounded-xl overflow-hidden border border-border/50 shadow-sm bg-secondary/30"
+                  >
+                    <img
+                      src={img.url}
+                      alt={img.alt ?? post.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto"
+                    />
+                    {img.alt && (
+                      <figcaption className="px-4 py-3 text-sm text-muted-foreground bg-white border-t border-border/50">
+                        {img.alt}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            )}
+
             {/* CTA cluster */}
             <div className="mt-12 pt-8 border-t border-border space-y-6">
               <a
