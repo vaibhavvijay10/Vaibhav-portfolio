@@ -5,8 +5,27 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
+    name: "Product Management",
+    skills: [
+      "Product Strategy",
+      "PRDs & Roadmapping",
+      "0-to-1 Product Launch",
+      "A/B Testing",
+      "User Journey Design",
+      "Product Instrumentation",
+    ],
+  },
+  {
     name: "Growth & Strategy",
-    skills: ["Go-To-Market (GTM)", "Product-Led Growth", "Growth Experimentation", "Funnel Optimization", "User-Journey Design", "P&L Ownership"],
+    skills: [
+      "Go-To-Market (GTM)",
+      "Product-Led Growth",
+      "Growth Experimentation",
+      "Funnel Optimization",
+      "User-Journey Design",
+      "P&L Ownership",
+      "Stakeholder Management",
+    ],
   },
   {
     name: "Performance Marketing",
@@ -17,16 +36,35 @@ const skillCategories: SkillCategory[] = [
     skills: ["Lifecycle Management", "LTV Maximization", "Customer Segmentation", "Retention Strategy", "CRM Platforms", "Email Marketing"],
   },
   {
+    name: "AI & Product Development",
+    skills: [
+      "AI-Powered Products",
+      "Gen-AI Prototyping",
+      "Claude Code & Cowork",
+      "AI-Led Workflows",
+      "LLM Agents",
+      "Prompt Engineering",
+    ],
+  },
+  {
     name: "Analytics & Tools",
-    skills: ["GA4", "Looker Studio", "AppsFlyer", "SEMrush", "Ahrefs", "Excel", "Data Analysis"],
+    skills: ["GA4", "Looker Studio", "AppsFlyer", "Mixpanel", "SEMrush", "Ahrefs", "Excel", "Data Analysis"],
   },
   {
     name: "Platforms & Tools",
-    skills: ["MoEngage", "Customer.io", "Intercom", "Freshdesk", "Zapier", "Slack"],
+    skills: ["MoEngage", "Customer.io", "Intercom", "Freshdesk", "Zapier", "n8n", "Slack"],
   },
   {
     name: "Soft Skills",
-    skills: ["Team Leadership", "Cross-functional Collaboration", "Strategic Thinking", "Communication", "Problem Solving", "Mentoring"],
+    skills: [
+      "Team Leadership",
+      "Cross-functional Collaboration",
+      "Strategic Thinking",
+      "Stakeholder Management",
+      "Communication",
+      "Problem Solving",
+      "Mentoring",
+    ],
   },
 ];
 
@@ -69,7 +107,7 @@ export default function Skills() {
         <div className="mb-12">
           <div className="accent-line mb-4" />
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Skills & Expertise</h2>
-          <p className="text-lg text-muted-foreground">7+ years of tools, platforms, and competencies I've mastered</p>
+          <p className="text-lg text-muted-foreground">7+ years of product, growth, AI and analytics tools, platforms, and competencies I've shipped with</p>
         </div>
 
         {/* Skills Grid */}
@@ -107,10 +145,11 @@ export default function Skills() {
           <div className="space-y-6 relative z-10">
             {[
               { label: "Growth Strategy & Execution", level: "Expert", pct: 95 },
+              { label: "Product Development", level: "Expert", pct: 92 },
               { label: "Performance Marketing", level: "Expert", pct: 90 },
-              { label: "Data Analysis & Reporting", level: "Advanced", pct: 85 },
+              { label: "AI-Led Product & Workflows", level: "Advanced", pct: 88 },
               { label: "Team Leadership", level: "Advanced", pct: 88 },
-              { label: "Product Development", level: "Advanced", pct: 80 },
+              { label: "Data Analysis & Reporting", level: "Advanced", pct: 85 },
             ].map((item) => (
               <div key={item.label}>
                 <div className="flex justify-between items-center mb-2">

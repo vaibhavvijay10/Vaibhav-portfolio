@@ -15,70 +15,92 @@ const experiences: ExperienceItem[] = [
   {
     id: "1",
     company: "OptiServ Consulting",
-    role: "Customer Experience & Growth Manager",
+    role: "Product and Customer Experience Manager",
     period: "Dec 2025 – Present",
-    description: "Leading customer experience and growth initiatives, building lifecycle engines and managing high-performing teams.",
+    description:
+      "Owning product roadmap and KPI framework for the customer experience platform — combining segmentation, lifecycle journeys, trigger-based automations, and A/B testing to lift repeat usage, CSAT, and SLA adherence.",
     achievements: [
-      "Built & scaled lifecycle & customer growth engine using segmentation, trigger journeys, SOPs, & QA",
-      "Improved repeat usage by 15%, CSAT by 9%, & response time by 27%",
-      "Led a 25-member CX/Support team to improve CSAT and SLA adherence",
+      "Owned product roadmap and KPI framework for the customer experience platform, driving repeat usage +15%, CSAT +9%, and response time -27%",
+      "Partnered with engineering on product instrumentation and experiment design; defined PRDs, user stories, and success metrics for support workflow and SLA improvement initiatives",
+      "Led a 25-member cross-functional team across Product, CX, QA, and Ops to ship product enhancements, SOPs, and QA cadences that lifted SLA adherence",
     ],
-    skills: ["CX Strategy", "Team Leadership", "Lifecycle Management", "QA"],
+    skills: [
+      "Product Roadmap",
+      "PRDs",
+      "A/B Testing",
+      "Lifecycle Journeys",
+      "Team Leadership",
+    ],
   },
   {
     id: "2",
     company: "KPAX Marketing",
-    role: "Head of Growth",
+    role: "Head of Growth and Product",
     period: "Jan 2025 – Nov 2025",
-    description: "Owned growth strategy across paid channels, built analytics foundation, and scaled brands to ₹20-30 Cr revenue.",
+    description:
+      "Owned end-to-end product strategy for acquisition, monetization, and lifecycle surfaces — defining roadmap, hypothesis backlog, and KPIs across Meta, Google, and Apple Search Ads ecosystems.",
     achievements: [
-      "Owned Meta, Google Ads, & ASO strategy across performance marketing funnels",
-      "Built paid, lifecycle, & analytics foundation that helped scale brands to ₹20–30 Cr annual revenue",
-      "Improved LTV from $70 to $350 and reduced payback time by 40%",
-      "Built and led 15-member cross-functional team",
+      "Owned end-to-end product strategy across acquisition, monetization, and lifecycle surfaces; defined roadmap, hypothesis backlog, and KPIs",
+      "Scaled brands from $0 to $2.5M – $3.5M in annual revenue within 9 months by shipping lifecycle, paid, and analytics product features",
+      "Improved LTV from $70 to $350 and reduced payback time by 40% through cohort-based retention experiments, personalization, and journey optimization",
+      "Led a 15-member cross-functional org across Product, Growth, CRM, and Operations",
     ],
-    skills: ["Meta Ads", "Google Ads", "ASO", "Team Leadership", "Analytics"],
+    skills: [
+      "Product Strategy",
+      "Roadmapping",
+      "LTV Optimization",
+      "Meta Ads",
+      "Google Ads",
+      "Apple Search Ads",
+      "Team Leadership",
+    ],
   },
   {
     id: "3",
     company: "KPAX Marketing",
-    role: "Growth & Product Strategy Lead",
+    role: "Product and Growth Strategy Lead",
     period: "Oct 2021 – Dec 2024",
-    description: "Led 0-to-1 product launches, optimized customer journeys, and scaled Apple Search Ads efficiently.",
+    description:
+      "Led 0-to-1 product launch and GTM — defined PRDs, user requirements, onboarding, checkout, and payment journeys — and lifted adoption and conversion through iterative experimentation.",
     achievements: [
-      "Led 0-to-1 product launch & GTM, defining requirements, onboarding, checkout flows, & KPI tracking",
-      "Optimized customer segmentation & lifecycle journeys, increasing repeat transactions by 15–25%",
-      "Scaled Apple Search Ads efficiently to CPA below $4",
-      "Increased ROI by 10–20% and reduced churn by 8–12%",
+      "Led 0-to-1 product launch and GTM; defined PRDs, user requirements, onboarding, checkout, and payment journeys; lifted adoption and conversion through iterative experimentation",
+      "Drove customer segmentation and lifecycle product journeys, increasing repeat transactions by 15–25%, ROI by 10–20%, and reducing churn by 8–12%",
+      "Built creative testing and keyword product systems on Apple Search Ads, scaling efficiently to CPA below $4",
     ],
-    skills: ["Product Launch", "GTM", "Apple Search Ads", "Funnel Optimization"],
+    skills: [
+      "0-to-1 Product Launch",
+      "PRDs",
+      "User Journey Design",
+      "GTM",
+      "Apple Search Ads",
+      "Funnel Optimization",
+    ],
   },
   {
     id: "4",
     company: "Ekatra Collective",
-    role: "Digital Marketing Manager",
+    role: "GTM and Product Marketing Manager",
     period: "Dec 2020 – Oct 2021",
-    description: "Drove demand generation and built GTM strategy post-Shark Tank, scaling revenue from ₹39L to ₹1.8 Cr.",
+    description:
+      "Owned post Shark Tank product marketing and GTM — refining positioning, packaging, brand narrative, and channel mix to scale revenue from $50K to $220K.",
     achievements: [
-      "Drove demand via Meta & Google Ads, influencer seeding, retargeting, content strategy",
-      "Scaled revenue from ₹39L to ₹1.8 Cr",
-      "Built post Shark Tank GTM strategy with refined positioning and brand narrative",
-      "Executed via website, social, PR/events to drive awareness and credibility",
+      "Owned post Shark Tank product marketing and GTM; refined positioning, packaging, brand narrative, and channel mix to scale revenue from $50K to $220K",
+      "Built repeat purchase product loops via Meta and Google Ads, influencer seeding, retargeting, content, and Email/WhatsApp lifecycle CRM",
     ],
-    skills: ["Meta Ads", "Google Ads", "GTM Strategy", "Content Marketing"],
+    skills: ["GTM Strategy", "Product Marketing", "Brand Positioning", "Meta Ads", "Google Ads"],
   },
   {
     id: "5",
     company: "ThinkQuant",
-    role: "Associate",
+    role: "Growth and Product Associate",
     period: "Feb 2019 – Nov 2020",
-    description: "Drove user acquisition and built multi-channel CRM, growing monthly signups by 57%.",
+    description:
+      "Drove user acquisition product experiments and launched a multi-channel CRM product on MoEngage to drive lifecycle engagement.",
     achievements: [
-      "Grew monthly new-user signups +57% via Google PPC/Facebook ads acquisition",
-      "Launched multi-channel CRM on MoEngage (Push/SMS/Email/WhatsApp)",
-      "Implemented ROI tracking and optimization across channels",
+      "Drove user acquisition product experiments via Google PPC and Meta Ads, lifting monthly new user signups +57%",
+      "Launched a multi-channel CRM product (Push, SMS, Email, WhatsApp) on MoEngage to drive lifecycle engagement",
     ],
-    skills: ["Google Ads", "Facebook Ads", "CRM", "User Acquisition"],
+    skills: ["Growth Experimentation", "Google Ads", "Meta Ads", "CRM", "MoEngage"],
   },
 ];
 
@@ -118,7 +140,7 @@ export default function Experience() {
         <div className="mb-12">
           <div className="accent-line mb-4" />
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Professional Experience</h2>
-          <p className="text-lg text-muted-foreground">7+ years of driving growth and scaling startups</p>
+          <p className="text-lg text-muted-foreground">7+ years building consumer and platform products at the intersection of product, growth, and GTM</p>
         </div>
 
         {/* Experience Timeline */}

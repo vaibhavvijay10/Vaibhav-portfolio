@@ -54,7 +54,7 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Tagline */}
         <div className="mb-3 sm:mb-4">
           <span className="text-xs sm:text-sm font-semibold text-accent tracking-widest uppercase">
-            Head of Growth & Performance Marketing Leader
+            Product Manager &middot; Head of Growth &middot; GTM Strategy
           </span>
         </div>
 
@@ -66,10 +66,10 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Subtitle — shorter on mobile */}
         <p className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed mb-5 sm:mb-6">
           <span className="hidden sm:inline">
-            Head of Growth & Performance Marketing with 7+ years of experience helping startups and digital brands scale through lifecycle marketing, CRM, retention, CRO, and data-driven growth strategy.
+            7+ years building consumer and platform products at the intersection of product, growth, and GTM. Led 0-to-1 launches, scaled brands from $0 to $3.5M, and ship AI-led product experiences across lifecycle, paid, and analytics.
           </span>
           <span className="sm:hidden">
-            7+ years scaling startups through performance marketing, lifecycle CRM, CRO & data-driven growth.
+            7+ years at the intersection of product, growth &amp; AI. 0-to-1 launches, $0 to $3.5M scaled, AI-led product experiences.
           </span>
         </p>
 
