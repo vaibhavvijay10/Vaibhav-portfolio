@@ -9,7 +9,7 @@ const PAGE_URL = `${SITE_URL}/about`;
 
 const PAGE_TITLE = "About Vaibhav Vijay | Head of Growth & Performance Marketing Leader";
 const PAGE_DESC =
-  "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. ₹20Cr+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
+  "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. $3.5M+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
 
 function setLinkTag(rel: string, href: string) {
   let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
@@ -76,7 +76,7 @@ export default function AboutPage() {
   const faqs = [
     {
       q: "Who is Vaibhav Vijay?",
-      a: `Vaibhav Vijay is a Head of Growth and Performance Marketing leader based in India with 7+ years of experience scaling startups and digital-first brands. He has helped scale multiple brands to ₹20Cr+ in revenue across 4 companies, taken an app from #180 to #1 in its category through ASO, and grown customer LTV 5x (from $70 to $350) through retention optimization. He specializes in performance marketing across Meta, Google and Apple Search Ads; lifecycle marketing and CRM; conversion rate optimization; and AI-native marketing workflows. He is available for consulting, fractional Head of Growth roles, and strategic partnerships.`,
+      a: `Vaibhav Vijay is a Head of Growth and Performance Marketing leader based in India with 7+ years of experience scaling startups and digital-first brands. He has helped scale multiple brands to $3.5M+ in revenue across 4 companies, taken an app from #180 to #1 in its category through ASO, and grown customer LTV 5x (from $70 to $350) through retention optimization. He specializes in performance marketing across Meta, Google and Apple Search Ads; lifecycle marketing and CRM; conversion rate optimization; and AI-native marketing workflows. He is available for consulting, fractional Head of Growth roles, and strategic partnerships.`,
     },
     {
       q: "What is Vaibhav's professional background?",
@@ -88,7 +88,7 @@ export default function AboutPage() {
     },
     {
       q: "What are Vaibhav's notable career achievements?",
-      a: `Notable outcomes from past engagements include: helping multiple brands scale to ₹20 Cr+ in annual revenue; taking an app from #180 to #1 in its App Store category over 90 days through ASO and ASA optimization; growing customer LTV 5x from $70 to $350 through a restructured retention and incentive program; building the go-to-market playbook for Ekatra following its Shark Tank India appearance; rebuilding the reactivation engine for a brand where dormant users outnumbered active 3:1, bringing 14% of dormant users back at one fifth of fresh acquisition CAC.`,
+      a: `Notable outcomes from past engagements include: helping multiple brands scale from $0 to $3.5M+ in annual revenue; taking an app from #180 to #1 in its App Store category over 90 days through ASO and ASA optimization; growing customer LTV 5x from $70 to $350 through a restructured retention and incentive program; building the go-to-market playbook for Ekatra following its Shark Tank India appearance; rebuilding the reactivation engine for a brand where dormant users outnumbered active 3:1, bringing 14% of dormant users back at one fifth of fresh acquisition CAC.`,
     },
     {
       q: "What does Vaibhav specialize in?",
@@ -210,7 +210,7 @@ export default function AboutPage() {
                 <div className="text-xs sm:text-sm text-muted-foreground mt-1">Years experience</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-bold text-accent">₹20Cr+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-accent">$3.5M+</div>
                 <div className="text-xs sm:text-sm text-muted-foreground mt-1">Revenue scaled</div>
               </div>
               <div>

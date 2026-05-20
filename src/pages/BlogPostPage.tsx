@@ -146,7 +146,7 @@ export default function BlogPostPage({ slug }: Props) {
         .querySelector('meta[property="og:description"]')
         ?.setAttribute(
           "content",
-          "7+ years scaling startups and digital brands through performance marketing, lifecycle CRM, CRO and data-driven growth strategy. ₹20Cr+ revenue scaled across 4 companies."
+          "7+ years scaling startups and digital brands through performance marketing, lifecycle CRM, CRO and data-driven growth strategy. $3.5M+ revenue scaled across 4 companies."
         );
       document
         .querySelector('meta[property="og:image"]')

@@ -545,7 +545,7 @@ async function writeStaticPage(relativePath, opts, noscriptBody, fullHead, baseB
 const ABOUT_FAQS = [
   {
     q: "Who is Vaibhav Vijay?",
-    a: "Vaibhav Vijay is a Head of Growth and Performance Marketing leader based in India with 7+ years of experience scaling startups and digital-first brands. He has helped scale multiple brands to ₹20Cr+ in revenue across 4 companies, taken an app from #180 to #1 in its category through ASO, and grown customer LTV 5x (from $70 to $350) through retention optimization. He specializes in performance marketing across Meta, Google and Apple Search Ads; lifecycle marketing and CRM; conversion rate optimization; and AI-native marketing workflows. He is available for consulting, fractional Head of Growth roles, and strategic partnerships.",
+    a: "Vaibhav Vijay is a Head of Growth and Performance Marketing leader based in India with 7+ years of experience scaling startups and digital-first brands. He has helped scale multiple brands to $3.5M+ in revenue across 4 companies, taken an app from #180 to #1 in its category through ASO, and grown customer LTV 5x (from $70 to $350) through retention optimization. He specializes in performance marketing across Meta, Google and Apple Search Ads; lifecycle marketing and CRM; conversion rate optimization; and AI-native marketing workflows. He is available for consulting, fractional Head of Growth roles, and strategic partnerships.",
   },
   {
     q: "What is Vaibhav's professional background?",
@@ -557,7 +557,7 @@ const ABOUT_FAQS = [
   },
   {
     q: "What are Vaibhav's notable career achievements?",
-    a: "Notable outcomes from past engagements include: helping multiple brands scale to ₹20 Cr+ in annual revenue; taking an app from #180 to #1 in its App Store category over 90 days through ASO and ASA optimization; growing customer LTV 5x from $70 to $350 through a restructured retention and incentive program; building the go-to-market playbook for Ekatra following its Shark Tank India appearance; rebuilding the reactivation engine for a brand where dormant users outnumbered active 3:1, bringing 14% of dormant users back at one fifth of fresh acquisition CAC.",
+    a: "Notable outcomes from past engagements include: helping multiple brands scale from $0 to $3.5M+ in annual revenue; taking an app from #180 to #1 in its App Store category over 90 days through ASO and ASA optimization; growing customer LTV 5x from $70 to $350 through a restructured retention and incentive program; building the go-to-market playbook for Ekatra following its Shark Tank India appearance; rebuilding the reactivation engine for a brand where dormant users outnumbered active 3:1, bringing 14% of dormant users back at one fifth of fresh acquisition CAC.",
   },
   {
     q: "What does Vaibhav specialize in?",
@@ -590,7 +590,7 @@ async function prerenderAboutPage(fullHead, baseBody) {
   const title =
     "About Vaibhav Vijay | Head of Growth & Performance Marketing Leader";
   const description =
-    "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. ₹20Cr+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
+    "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. $3.5M+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
 
   const aboutPageLd = {
     "@context": "https://schema.org",
@@ -618,7 +618,7 @@ async function prerenderAboutPage(fullHead, baseBody) {
       <article style="max-width:720px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
         <p><a href="/">&larr; Home</a></p>
         <h1>Vaibhav Vijay — Head of Growth &amp; Performance Marketing Leader</h1>
-        <p>Data-driven growth leader with 7+ years scaling startups and digital-first brands across iGaming, D2C, mobile apps and SaaS. Based in India, working with clients globally. 7+ years experience. ₹20Cr+ revenue scaled. 5x LTV growth. ASO ranking #180 to #1.</p>
+        <p>Data-driven growth leader with 7+ years scaling startups and digital-first brands across iGaming, D2C, mobile apps and SaaS. Based in India, working with clients globally. 7+ years experience. $3.5M+ revenue scaled. 5x LTV growth. ASO ranking #180 to #1.</p>
         ${ABOUT_FAQS.map(
           (f) =>
             `<section style="margin:2rem 0;"><h2>${escapeHtml(f.q)}</h2><p>${escapeHtml(f.a)}</p></section>`

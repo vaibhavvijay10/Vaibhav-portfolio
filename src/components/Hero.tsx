@@ -80,7 +80,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             <div className="text-xs sm:text-sm text-muted-foreground">Years Exp.</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-4xl font-bold text-accent">₹20Cr+</div>
+            <div className="text-2xl sm:text-4xl font-bold text-accent">$3.5M+</div>
             <div className="text-xs sm:text-sm text-muted-foreground">Revenue Scaled</div>
           </div>
           <div>
