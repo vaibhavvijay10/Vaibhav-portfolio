@@ -46,16 +46,16 @@ export default function About() {
           {/* Bio */}
           <div className="md:col-span-2 space-y-4">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm <strong className="text-foreground">Vaibhav Vijay</strong>, a data-driven Product and Growth leader with <strong className="text-accent">7+ years of experience</strong> building consumer and platform products at the intersection of product, growth, and GTM. I specialize in 0-to-1 product launches, lifecycle product journeys, performance marketing, CRM, CRO, and AI-led product development — with a strong focus on turning experiments into durable business outcomes.
+              I'm <strong className="text-foreground">Vaibhav Vijay</strong>, a data driven Product and Growth leader with <strong className="text-accent">7+ years of experience</strong> building consumer and platform products at the intersection of product, growth, and GTM. I specialize in 0 to 1 product launches, lifecycle product journeys, performance marketing, CRM, CRO, and AI led product development, with a strong focus on turning experiments into durable business outcomes.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              From 0-to-1 launches to scaling brands from $0 to $3.5M in annual revenue, I've owned the full KPI stack across acquisition, activation, retention, and LTV — defining PRDs, partnering with engineering on instrumentation and experiment design, and shipping product features that move the metrics that matter.
+              From 0 to 1 launches to scaling brands from $0 to $3.5M in annual revenue, I've owned the full KPI stack across acquisition, activation, retention, and LTV. Along the way I've defined PRDs, partnered with engineering on instrumentation and experiment design, and shipped product features that move the metrics that matter.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Beyond titles and channels, I see myself as someone who enjoys <strong className="text-foreground">building things that work</strong>—better journeys, stronger teams, clearer narratives, and more efficient systems for growth. I'm deeply interested in the relationship between human behavior, analytics, product experience, and marketing performance.
+              Beyond titles and channels, I see myself as someone who enjoys <strong className="text-foreground">building things that work</strong>: better journeys, stronger teams, clearer narratives, and more efficient systems for growth. I'm deeply interested in the relationship between human behavior, analytics, product experience, and marketing performance.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Outside work, I'm a dog person, a traveler, a surfing enthusiast, and someone who genuinely enjoys sports and analytics—the kind of interests that keep me curious, competitive, and always learning.
+              Outside work, I'm a dog person, a traveler, a surfing enthusiast, and someone who genuinely enjoys sports and analytics. These are the kind of interests that keep me curious, competitive, and always learning.
             </p>
           </div>
         </div>
