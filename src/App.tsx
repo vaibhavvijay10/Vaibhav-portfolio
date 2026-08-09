@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 // Route-level code splitting: each page is downloaded only when its route
 // is visited. Keeps the initial JS bundle minimal for first paint.
@@ -25,6 +26,7 @@ export default function App() {
           <ScrollToTop />
           <Analytics />
           <SpeedInsights />
+          <GoogleAnalytics />
           <Suspense fallback={null}>
             <Switch>
               <Route path="/blog/:slug">
