@@ -16,7 +16,7 @@
 
 // Paste your GA4 Measurement ID here to activate tracking.
 // Format must start with "G-". Example: "G-8A1B2C3D4E"
-export const GA_MEASUREMENT_ID = "";
+export const GA_MEASUREMENT_ID = "G-QCS95HX7JM";
 
 /** True if a valid-looking Measurement ID is configured. */
 export function isGAEnabled(): boolean {
