@@ -129,6 +129,36 @@ export default function About() {
             </div>
           </div>
         </div>
+
+        {/* Education */}
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold text-foreground border-l-4 border-accent pl-4 mb-6">
+            Education
+          </h3>
+          <div className="space-y-4">
+            <div className="bg-white rounded-xl p-5 border border-border/50 shadow-sm">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h4 className="text-lg font-bold text-foreground">
+                  Bachelor of Technology, Information Technology
+                </h4>
+                <span className="text-sm text-accent font-semibold">67.5%</span>
+              </div>
+              <p className="text-muted-foreground mt-1">
+                Jaipur Engineering College and Research Centre (JECRC Foundation), Jaipur
+              </p>
+            </div>
+            <div className="bg-white rounded-xl p-5 border border-border/50 shadow-sm">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h4 className="text-lg font-bold text-foreground">
+                  St. Paul Sr. Sec. School, Kota
+                </h4>
+                <span className="text-sm text-accent font-semibold">
+                  12th: 80.6% &middot; 10th: 8.6 CGPA
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

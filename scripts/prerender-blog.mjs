@@ -889,6 +889,183 @@ async function prerenderTopicPages(fullHead, baseBody, posts) {
   }
 }
 
+// ----- /projects data loader -----
+async function loadProjects() {
+  const src = await fs.readFile(
+    path.join(ROOT, "src", "data", "projects.ts"),
+    "utf-8"
+  );
+  const projects = [];
+  const startMarker = /\{\s*id:\s*"/g;
+  let match;
+  while ((match = startMarker.exec(src)) !== null) {
+    let depth = 0;
+    let i = match.index;
+    const start = i;
+    for (; i < src.length; i++) {
+      const ch = src[i];
+      if (ch === "{") depth++;
+      else if (ch === "}") {
+        depth--;
+        if (depth === 0) break;
+      } else if (ch === '"' || ch === "'") {
+        const q = ch;
+        i++;
+        while (i < src.length && src[i] !== q) {
+          if (src[i] === "\\") i++;
+          i++;
+        }
+      } else if (ch === "`") {
+        i++;
+        while (i < src.length && src[i] !== "`") {
+          if (src[i] === "\\") i++;
+          i++;
+        }
+      }
+    }
+    const block = src.slice(start, i + 1);
+    // Only top-level project objects have a slug + tagline pair
+    const slug = pluck(block, "slug");
+    const name = pluck(block, "name");
+    if (slug && name) {
+      projects.push({
+        slug,
+        name,
+        tagline: pluck(block, "tagline"),
+        category: pluck(block, "category"),
+        status: pluck(block, "status"),
+        period: pluck(block, "period"),
+        role: pluck(block, "role"),
+        excerpt: pluck(block, "excerpt"),
+        overview: pluckTemplate(block, "overview") ?? "",
+        outcomes: pluckArray(block, "outcomes"),
+        learnings: pluckArray(block, "learnings"),
+        tags: pluckArray(block, "tags"),
+      });
+    }
+    startMarker.lastIndex = i + 1;
+  }
+  return projects;
+}
+
+async function prerenderProjectPages(fullHead, baseBody) {
+  const projects = await loadProjects();
+  const indexUrl = `${SITE_URL}/projects`;
+
+  // --- /projects index ---
+  const indexTitle = "Projects | Vaibhav Vijay — Product, AI and Growth Builds";
+  const indexDesc =
+    "Things Vaibhav Vijay has built: AlphaPulse (algorithmic trading engine), Karmic.ai (AI first mobile app), and WinningKings (0-to-1 casino brand launch in India). Architecture, approach and what each one taught.";
+
+  const indexLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${indexUrl}#collection`,
+    url: indexUrl,
+    name: indexTitle,
+    description: indexDesc,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#person` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${indexUrl}/${p.slug}`,
+        name: `${p.name} — ${p.tagline}`,
+      })),
+    },
+  };
+
+  const indexNoscript = `
+    <noscript>
+      <article style="max-width:720px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
+        <p><a href="/">&larr; Home</a></p>
+        <h1>Things I've built</h1>
+        <p>${escapeHtml(indexDesc)}</p>
+        ${projects
+          .map(
+            (p) => `<section style="margin:2rem 0;">
+              <h2><a href="/projects/${escapeHtml(p.slug)}">${escapeHtml(p.name)} — ${escapeHtml(p.tagline ?? "")}</a></h2>
+              <p><strong>${escapeHtml(p.status ?? "")}</strong> &middot; ${escapeHtml(p.category ?? "")} &middot; ${escapeHtml(p.period ?? "")}</p>
+              <p>${escapeHtml(p.excerpt ?? "")}</p>
+            </section>`
+          )
+          .join("")}
+      </article>
+    </noscript>`;
+
+  await writeStaticPage(
+    "projects",
+    { url: indexUrl, title: indexTitle, description: indexDesc, jsonLdBlocks: [indexLd] },
+    indexNoscript,
+    fullHead,
+    baseBody
+  );
+
+  // --- /projects/<slug> detail pages ---
+  for (const p of projects) {
+    const url = `${indexUrl}/${p.slug}`;
+    const title = `${p.name} — ${p.tagline} | Vaibhav Vijay`;
+
+    const projectLd = {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "@id": `${url}#project`,
+      name: `${p.name} — ${p.tagline}`,
+      headline: p.name,
+      description: p.excerpt,
+      url,
+      creator: { "@id": `${SITE_URL}/#person` },
+      author: { "@id": `${SITE_URL}/#person` },
+      about: p.category,
+      keywords: (p.tags ?? []).join(", "),
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      inLanguage: "en",
+    };
+
+    const noscript = `
+      <noscript>
+        <article style="max-width:720px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
+          <p><a href="/projects">&larr; All projects</a></p>
+          <h1>${escapeHtml(p.name)}</h1>
+          <p><strong>${escapeHtml(p.tagline ?? "")}</strong></p>
+          <p>${escapeHtml(p.status ?? "")} &middot; ${escapeHtml(p.category ?? "")} &middot; ${escapeHtml(p.period ?? "")}</p>
+          <p><em>Role:</em> ${escapeHtml(p.role ?? "")}</p>
+          ${p.overview
+            .split(/\n\n+/)
+            .map((para) => `<p>${escapeHtml(para)}</p>`)
+            .join("")}
+          ${
+            (p.outcomes ?? []).length > 0
+              ? `<h2>Outcomes</h2><ul>${p.outcomes.map((o) => `<li>${escapeHtml(o)}</li>`).join("")}</ul>`
+              : ""
+          }
+          ${
+            (p.learnings ?? []).length > 0
+              ? `<h2>What it taught me</h2><ul>${p.learnings.map((l) => `<li>${escapeHtml(l)}</li>`).join("")}</ul>`
+              : ""
+          }
+          <p><a href="${url}">Permalink</a></p>
+        </article>
+      </noscript>`;
+
+    await writeStaticPage(
+      `projects/${p.slug}`,
+      {
+        url,
+        title,
+        description: p.excerpt,
+        ogType: "article",
+        jsonLdBlocks: [projectLd],
+      },
+      noscript,
+      fullHead,
+      baseBody
+    );
+  }
+}
+
 // ----- RSS feed -----
 async function writeRssFeed(posts) {
   const items = posts
@@ -960,6 +1137,7 @@ async function main() {
   await prerenderAboutPage(fullHead, baseBody);
   await prerenderServicesPage(fullHead, baseBody);
   await prerenderTopicPages(fullHead, baseBody, posts);
+  await prerenderProjectPages(fullHead, baseBody);
 
   // 3. RSS feed
   await writeRssFeed(posts);

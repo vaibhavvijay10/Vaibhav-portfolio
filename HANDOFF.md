@@ -9,7 +9,9 @@ Last updated: 2026-04-29
 
 ## 30-second TL;DR
 
-A personal portfolio site for **Vaibhav Vijay** (Head of Growth & Performance Marketing, India, 7+ yrs experience). Originally built on Manus, migrated to a clean Vite + React 19 + Tailwind 4 SPA, deployed on Vercel from GitHub, served from custom domain `vaibhavvijay.com` via Hostinger DNS. Full SEO/GEO/AEO stack: 6 JSON-LD schemas, 19 FAQ entries, 8 blog articles each at its own indexable `/blog/[slug]` URL with prerendered HTML for non-JS AI crawlers. Live in production. PageSpeed: SEO 100, A11y 92, Performance 89 (mobile) / 99 (desktop).
+A personal portfolio site for **Vaibhav Vijay** (Product Manager · Head of Growth · GTM Strategy, India, 7+ yrs experience). Originally built on Manus, migrated to a clean Vite + React 19 + Tailwind 4 SPA, deployed on Vercel from GitHub, served from custom domain `vaibhavvijay.com` via Hostinger DNS. Full SEO/GEO/AEO stack: 9 JSON-LD schema types, 19 FAQ entries, **31 indexable URLs** (homepage, /about, /services, /projects + 3 detail pages, 4 topic clusters, 15 blog articles) each with prerendered HTML for non-JS AI crawlers. GA4 + Vercel Analytics live. Live in production. PageSpeed: SEO 100, A11y 92, Performance 89 (mobile) / 99 (desktop).
+
+> **Note on ordering:** the timeline sections below were written incrementally. The most recent state is always in "Phase 8" of `README.md` and the "Most recent commits" section at the bottom of this file.
 
 The site is **technically complete**. Bottleneck now is content/distribution, not code.
 
@@ -178,7 +180,10 @@ vaibhav-portfolio-vercel/
 │   │   └── ui/                          # shadcn primitives (Radix wrappers) — many unused, kept for future
 │   │
 │   ├── data/
-│   │   └── blog-posts.ts                # ★ SINGLE SOURCE OF TRUTH for the 8 blog articles
+│   │   ├── blog-posts.ts                # ★ SINGLE SOURCE OF TRUTH for the 15 blog articles
+│   │   ├── projects.ts                  # ★ 3 projects: AlphaPulse, Karmic.ai, WinningKings
+│   │   ├── topics.ts                    # 4 topic clusters + getRelatedPosts()
+│   │   └── services.ts                  # 6 service offerings
 │   │                                    #   Adding a new article = 1 entry here + push
 │   │
 │   ├── contexts/
@@ -414,6 +419,36 @@ curl -s https://vaibhavvijay.com/blog/ask-an-agent-your-own-name | grep -c "<nos
 # robots.txt allows AI bots
 curl -s https://vaibhavvijay.com/robots.txt | grep -E "GPTBot|ClaudeBot|PerplexityBot"
 ```
+
+---
+
+## Sep 2026 update — Product repositioning + Projects
+
+The site was repositioned from a pure growth-marketing portfolio to **Product Manager · Head of Growth · GTM Strategy**, driven by an updated resume.
+
+**Content/data changes:**
+- KPAX experience consolidated into ONE role (Oct 2021 – Nov 2025), noting the Strategy Lead → Head promotion. Previously it was split into two entries.
+- Ekatra revenue corrected: `$50K → $220K` became `$50K → $2M`
+- Revenue stat changed from `₹20Cr+` to `$3.5M+` in 9 places across 6 files (Hero, AboutPage, BlogPostPage, index.html, prerender script, llms.txt)
+- Skills restructured to match the resume's 4 categories, adding Claude Code, Claude Cowork, OpenAI Codex, Cursor, Antigravity, MCP Connectors, RAG Agents, HubSpot, Braze, Mixpanel, Figma, Jira
+- Education section added to the homepage About component
+- About bio de-hyphenated (em-dashes replaced with commas/colons/sentence breaks) at the user's request
+
+**New: Projects**
+- `src/data/projects.ts` — 3 projects, each expanded from a one-line resume bullet into a full case study with `overview`, `sections[]`, `stack[]`, `outcomes[]`, `learnings[]`, `relatedArticles[]`
+- `/projects` index page + `/projects/:slug` detail pages (4 new indexable URLs)
+- Homepage `Projects.tsx` section between Skills and Blog, with matching nav item (Rocket icon)
+- `CreativeWork` JSON-LD per project; `CollectionPage` + `ItemList` on the index
+- Prerender script extended with `loadProjects()` + `prerenderProjectPages()`
+
+**IMPORTANT — content provenance:** The project write-ups were expanded by AI from 2-line resume bullets. Every claim traces back to something stated in the resume (rule-based signals, backtesting, risk controls, Expo/React Native/TypeScript/Claude API/n8n/RAG, GTM/paid/CRM/P&L ownership, CPA below $4, LTV $70→$350). **No metrics were invented.** Where specifics were unknown, the copy describes approach and reasoning rather than asserting numbers. The user should review and adjust any detail that misrepresents the actual work.
+
+**Analytics:**
+- Google Analytics 4 installed. Measurement ID `G-QCS95HX7JM` lives in `src/lib/analytics.ts`
+- `GoogleAnalytics.tsx` injects gtag once and fires a `page_view` on every wouter route change (`send_page_view: false` in config to avoid double-counting the first view)
+- `trackEvent(name, params)` helper available for future conversion events
+
+**Resume:** `public/Resume-VaibhavVijay.pdf` replaced with the Sep 2026 product-focused version.
 
 ---
 

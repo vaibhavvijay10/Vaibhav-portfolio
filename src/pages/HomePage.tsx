@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
+import Projects from "@/components/Projects";
 import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -14,6 +15,7 @@ export default function HomePage() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const experienceRef = useRef<HTMLDivElement | null>(null);
   const skillsRef = useRef<HTMLDivElement | null>(null);
+  const projectsRef = useRef<HTMLDivElement | null>(null);
   const blogRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
 
@@ -22,6 +24,7 @@ export default function HomePage() {
     about: aboutRef,
     experience: experienceRef,
     skills: skillsRef,
+    projects: projectsRef,
     blog: blogRef,
     contact: contactRef,
   };
@@ -54,6 +57,7 @@ export default function HomePage() {
         { id: "about", ref: aboutRef },
         { id: "experience", ref: experienceRef },
         { id: "skills", ref: skillsRef },
+        { id: "projects", ref: projectsRef },
         { id: "blog", ref: blogRef },
         { id: "contact", ref: contactRef },
       ];
@@ -92,6 +96,10 @@ export default function HomePage() {
 
         <div ref={skillsRef} id="skills">
           <Skills />
+        </div>
+
+        <div ref={projectsRef} id="projects">
+          <Projects />
         </div>
 
         <div ref={blogRef} id="blog">

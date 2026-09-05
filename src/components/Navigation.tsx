@@ -4,6 +4,7 @@ import {
   User,
   Briefcase,
   Code2,
+  Rocket,
   Newspaper,
   Mail,
   Menu,
@@ -20,6 +21,7 @@ const navItems = [
   { id: "about", label: "About", icon: User },
   { id: "experience", label: "Experience", icon: Briefcase },
   { id: "skills", label: "Skills", icon: Code2 },
+  { id: "projects", label: "Projects", icon: Rocket },
   { id: "blog", label: "Blog", icon: Newspaper },
   { id: "contact", label: "Contact", icon: Mail },
 ];
