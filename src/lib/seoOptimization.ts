@@ -13,7 +13,7 @@ export const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Vaibhav Vijay",
-  "jobTitle": "Head of Growth & Performance Marketing Leader",
+  "jobTitle": "Product Manager · Head of Growth · GTM Strategy",
   "url": "https://vaibhavvijay.com",
   "sameAs": [
     "https://linkedin.com/in/vaibhavvijay10",
@@ -44,7 +44,7 @@ export const organizationSchema = {
   "name": "Vaibhav Vijay - Growth & Performance Marketing",
   "url": "https://vaibhavvijay.com",
   "logo": "https://vaibhavvijay.com/logo.png",
-  "description": "Professional portfolio of Vaibhav Vijay, Head of Growth & Performance Marketing with 7+ years of experience",
+  "description": "Professional portfolio of Vaibhav Vijay, Product Manager and Head of Growth with 7+ years of experience",
   "sameAs": [
     "https://linkedin.com/in/vaibhavvijay10",
   ],
@@ -228,7 +228,7 @@ export const aeoKeywords = {
 // ============================================
 
 export const metaTags = {
-  title: "Vaibhav Vijay | Head of Growth & Performance Marketing Leader | 7+ Years Experience",
+  title: "Vaibhav Vijay | Product Manager & Head of Growth (7+ Yrs)",
   description: "Vaibhav Vijay is a Head of Growth & Performance Marketing leader with 7+ years of experience scaling startups and digital brands. Specializing in growth strategy, performance marketing, lifecycle marketing, CRM, and conversion rate optimization.",
   keywords: seoKeywords.primary.join(", "),
   author: "Vaibhav Vijay",

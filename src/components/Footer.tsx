@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Vaibhav Vijay</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Head of Growth &amp; Performance Marketing Leader
+              Product Manager &middot; Head of Growth &middot; GTM Strategy
             </p>
           </div>
 

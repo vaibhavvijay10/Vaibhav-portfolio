@@ -123,8 +123,7 @@ export default function BlogPostPage({ slug }: Props) {
     // Cleanup: restore site-wide tags when navigating away
     return () => {
       const homeUrl = `${SITE_URL}/`;
-      const homeTitle =
-        "Vaibhav Vijay | Head of Growth & Performance Marketing Leader (7+ Yrs)";
+      const homeTitle = "Vaibhav Vijay | Product Manager & Head of Growth (7+ Yrs)";
       const homeDesc =
         "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands. Expertise in growth strategy, performance marketing (Meta, Google, Apple Search Ads), lifecycle marketing, CRM, retention, CRO and go-to-market strategy.";
       const homeImage = `${SITE_URL}/og-image.jpg`;

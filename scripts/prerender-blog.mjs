@@ -545,11 +545,11 @@ async function writeStaticPage(relativePath, opts, noscriptBody, fullHead, baseB
 const ABOUT_FAQS = [
   {
     q: "Who is Vaibhav Vijay?",
-    a: "Vaibhav Vijay is a Head of Growth and Performance Marketing leader based in India with 7+ years of experience scaling startups and digital-first brands. He has helped scale multiple brands to $3.5M+ in revenue across 4 companies, taken an app from #180 to #1 in its category through ASO, and grown customer LTV 5x (from $70 to $350) through retention optimization. He specializes in performance marketing across Meta, Google and Apple Search Ads; lifecycle marketing and CRM; conversion rate optimization; and AI-native marketing workflows. He is available for consulting, fractional Head of Growth roles, and strategic partnerships.",
+    a: "Vaibhav Vijay is a Product Manager and Head of Growth based in India with 7+ years taking consumer and B2B products from 0 to 1 across India and international markets. He launched a gaming platform end to end, took an app from #180 to #1 in its App Store category through ASO and Apple Search Ads, and grew customer LTV 5x from $70 to $350. He now consults on product and revenue strategy, builds AI automation systems for businesses, and is available for Product Manager, Head of Growth and fractional roles.",
   },
   {
     q: "What is Vaibhav's professional background?",
-    a: "Vaibhav has spent the last seven plus years building and scaling growth functions across iGaming, D2C, mobile apps and SaaS. He started in performance marketing — running paid acquisition across Meta, Google and Apple Search Ads — and over time grew the scope to include lifecycle CRM, retention, conversion rate optimization, marketing analytics and go-to-market strategy. Today he operates as a full-funnel growth leader who can own the entire growth P&L, not just one channel.",
+    a: "Vaibhav has spent 7+ years across product and growth. He started in 2019 as a Growth and Product Associate running acquisition experiments and launching a lifecycle CRM product, moved into go-to-market and product marketing at Ekatra after its Shark Tank India appearance, then spent four years at KPAX Marketing as Head of Growth and Product, where he led the 0 to 1 launch of a gaming platform and owned roadmap, hypothesis backlog and KPIs across acquisition, monetisation and lifecycle. Since 2026 he has consulted on product and revenue strategy and built AI-powered internal platforms and agentic workflows.",
   },
   {
     q: "What industries has Vaibhav worked in?",
@@ -588,9 +588,9 @@ const ABOUT_FAQS = [
 async function prerenderAboutPage(fullHead, baseBody) {
   const url = `${SITE_URL}/about`;
   const title =
-    "About Vaibhav Vijay | Head of Growth & Performance Marketing Leader";
+    "About Vaibhav Vijay | Product Manager & Head of Growth";
   const description =
-    "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. $3.5M+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
+    "Vaibhav Vijay is a Product Manager and Head of Growth with 7+ years taking products from 0 to 1 across India and international markets. App from #180 to #1, LTV grown 5x, four AI automation systems shipped. Based in India, available for product, growth and consulting roles globally.";
 
   const aboutPageLd = {
     "@context": "https://schema.org",
@@ -617,7 +617,7 @@ async function prerenderAboutPage(fullHead, baseBody) {
     <noscript>
       <article style="max-width:720px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
         <p><a href="/">&larr; Home</a></p>
-        <h1>Vaibhav Vijay — Head of Growth &amp; Performance Marketing Leader</h1>
+        <h1>Vaibhav Vijay — Product Manager &amp; Head of Growth</h1>
         <p>Data-driven growth leader with 7+ years scaling startups and digital-first brands across iGaming, D2C, mobile apps and SaaS. Based in India, working with clients globally. 7+ years experience. $3.5M+ revenue scaled. 5x LTV growth. ASO ranking #180 to #1.</p>
         ${ABOUT_FAQS.map(
           (f) =>
