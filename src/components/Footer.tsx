@@ -38,6 +38,7 @@ export default function Footer() {
               <li><a href="/services" className="hover:text-accent transition-colors text-sm">Services</a></li>
               <li><a href="/projects" className="hover:text-accent transition-colors text-sm">Projects</a></li>
               <li><a href="/#blog" className="hover:text-accent transition-colors text-sm">Articles</a></li>
+              <li><a href="/answers" className="hover:text-accent transition-colors text-sm">Answers</a></li>
               <li><a href="/#contact" className="hover:text-accent transition-colors text-sm">Contact</a></li>
             </ul>
           </div>

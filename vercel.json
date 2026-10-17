@@ -11,6 +11,8 @@
     { "source": "/topics/:slug", "destination": "/topics/:slug/index.html" },
     { "source": "/projects/:slug", "destination": "/projects/:slug/index.html" },
     { "source": "/projects", "destination": "/projects/index.html" },
+    { "source": "/answers/:slug", "destination": "/answers/:slug/index.html" },
+    { "source": "/answers", "destination": "/answers/index.html" },
     { "source": "/about", "destination": "/about/index.html" },
     { "source": "/services", "destination": "/services/index.html" },
     { "source": "/((?!.*\\.).*)", "destination": "/index.html" }

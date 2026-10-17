@@ -1066,6 +1066,172 @@ async function prerenderProjectPages(fullHead, baseBody) {
   }
 }
 
+// ----- Homepage: visible-FAQ schema + static copy for non-JS crawlers -----
+async function loadJsonArray(file, marker) {
+  const src = await fs.readFile(path.join(ROOT, "src", "data", file), "utf-8");
+  const start = src.indexOf(marker);
+  if (start < 0) throw new Error(`marker not found in ${file}`);
+  const from = src.indexOf("[", src.indexOf("=", start));
+  const to = src.indexOf("];", from);
+  return JSON.parse(src.slice(from, to + 1));
+}
+
+async function prerenderHomepageFaq(indexHtml) {
+  const faqs = await loadJsonArray("home-faq.ts", "export const homeFaqs");
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${SITE_URL}/#faq`,
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  const ld = `<script type="application/ld+json" id="home-faq-jsonld">${JSON.stringify(faqLd).replace(/</g, "\\u003c")}</script>`;
+  const noscript = `
+    <noscript>
+      <main style="max-width:760px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
+        <h1>Vaibhav Vijay — Product Manager · Head of Growth · GTM Strategy</h1>
+        <p>Product Manager and Head of Growth with 7+ years taking consumer and B2B products from 0 to 1 across India and international markets. Took an app from #180 to #1 in its App Store category, grew LTV 5x from $70 to $350, and builds AI automation systems for businesses.</p>
+        <p><a href="/about">About</a> · <a href="/projects">Projects</a> · <a href="/services">Services</a> · <a href="/answers">Answers</a> · <a href="/Resume-VaibhavVijay.pdf">Resume</a></p>
+        <h2>Frequently asked questions</h2>
+        ${faqs.map((f) => `<section><h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p></section>`).join("")}
+      </main>
+    </noscript>`;
+  let html = indexHtml.replace("</head>", `${ld}\n  </head>`);
+  html = html.replace("<body>", `<body>${noscript}`);
+  await fs.writeFile(path.join(DIST, "index.html"), html, "utf-8");
+  console.log(`[prerender] homepage: ${faqs.length} visible FAQs + FAQPage schema`);
+}
+
+// ----- /answers hub + /answers/<slug> -----
+function renderAnswerTable(t) {
+  return `<table border="1" cellpadding="6" style="border-collapse:collapse;margin:1rem 0;">
+    <caption>${escapeHtml(t.caption)}</caption>
+    <thead><tr>${t.columns.map((c) => `<th scope="col">${escapeHtml(c)}</th>`).join("")}</tr></thead>
+    <tbody>${t.rows.map((r) => `<tr>${r.map((c) => `<td>${escapeHtml(c)}</td>`).join("")}</tr>`).join("")}</tbody>
+  </table>`;
+}
+
+async function prerenderAnswerPages(fullHead, baseBody) {
+  const answers = await loadJsonArray("answers.ts", "export const answers");
+  const hubUrl = `${SITE_URL}/answers`;
+  const hubTitle = "Answers | Vaibhav Vijay — Short answers backed by real numbers";
+  const hubDesc =
+    "Short, data-backed answers on automation costs, Apple Search Ads, LTV, conversion and go-to-market, each built on numbers from products Vaibhav Vijay has run.";
+
+  const hubLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${hubUrl}#page`,
+      url: hubUrl,
+      name: hubTitle,
+      description: hubDesc,
+      author: { "@id": `${SITE_URL}/#person` },
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: answers.map((a, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `${hubUrl}/${a.slug}`,
+          name: a.question,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Answers", item: hubUrl },
+      ],
+    },
+  ];
+  const hubNoscript = `
+    <noscript>
+      <main style="max-width:760px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
+        <p><a href="/">&larr; Home</a></p>
+        <h1>Answers</h1>
+        <p>One question per page, answered in two sentences, then the numbers behind it.</p>
+        ${answers.map((a) => `<section><h2><a href="/answers/${escapeHtml(a.slug)}">${escapeHtml(a.question)}</a></h2><p>${escapeHtml(a.shortAnswer)}</p></section>`).join("")}
+      </main>
+    </noscript>`;
+  await writeStaticPage("answers", { url: hubUrl, title: hubTitle, description: hubDesc, jsonLdBlocks: hubLd }, hubNoscript, fullHead, baseBody);
+
+  for (const a of answers) {
+    const url = `${hubUrl}/${a.slug}`;
+    const person = { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Vaibhav Vijay", url: SITE_URL };
+    const articleLd = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": `${url}#article`,
+      headline: a.question,
+      description: a.description,
+      abstract: a.shortAnswer,
+      url,
+      mainEntityOfPage: url,
+      datePublished: a.isoDate,
+      dateModified: a.isoDate,
+      inLanguage: "en",
+      keywords: a.tags.join(", "),
+      author: person,
+      publisher: person,
+      image: `${SITE_URL}/og-image.jpg`,
+      speakable: { "@type": "SpeakableSpecification", cssSelector: [".answer-short", "h1"] },
+    };
+    const faqLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      mainEntity: [{ q: a.question, a: a.shortAnswer }, ...a.faqs].map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    };
+    const crumbs = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Answers", item: hubUrl },
+        { "@type": "ListItem", position: 3, name: a.question, item: url },
+      ],
+    };
+    const body = a.sections
+      .map(
+        (s) => `<section><h2>${escapeHtml(s.heading)}</h2>
+          ${(s.paragraphs || []).map((p) => `<p>${escapeHtml(p)}</p>`).join("")}
+          ${s.bullets ? `<ul>${s.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>` : ""}
+          ${s.table ? renderAnswerTable(s.table) : ""}
+        </section>`
+      )
+      .join("");
+    const noscript = `
+    <noscript>
+      <article style="max-width:760px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a;">
+        <p><a href="/answers">&larr; All answers</a></p>
+        <h1>${escapeHtml(a.question)}</h1>
+        <p>By <a href="/about">Vaibhav Vijay</a> · <time datetime="${a.isoDate}">${a.isoDate}</time></p>
+        <p class="answer-short"><strong>Short answer:</strong> ${escapeHtml(a.shortAnswer)}</p>
+        ${body}
+        ${a.faqs.length ? `<h2>Related questions</h2>${a.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}` : ""}
+        ${a.related.length ? `<h2>Read next</h2><ul>${a.related.map((r) => `<li><a href="${escapeHtml(r.href)}">${escapeHtml(r.label)}</a></li>`).join("")}</ul>` : ""}
+      </article>
+    </noscript>`;
+    await writeStaticPage(
+      `answers/${a.slug}`,
+      { url, title: `${a.question} | Vaibhav Vijay`, description: a.description, ogType: "article", jsonLdBlocks: [articleLd, faqLd, crumbs] },
+      noscript,
+      fullHead,
+      baseBody
+    );
+  }
+  console.log(`[prerender] answers: hub + ${answers.length} pages`);
+}
+
 // ----- RSS feed -----
 async function writeRssFeed(posts) {
   const items = posts
@@ -1138,6 +1304,10 @@ async function main() {
   await prerenderServicesPage(fullHead, baseBody);
   await prerenderTopicPages(fullHead, baseBody, posts);
   await prerenderProjectPages(fullHead, baseBody);
+  await prerenderAnswerPages(fullHead, baseBody);
+
+  // 2b. Homepage gets its FAQ schema + static copy last, so no other route inherits it
+  await prerenderHomepageFaq(indexHtml);
 
   // 3. RSS feed
   await writeRssFeed(posts);

@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://vaibhavvijay.com/</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://vaibhavvijay.com/" />
@@ -281,5 +281,54 @@
     <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/cost-to-automate-invoice-follow-ups-india</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/verify-ocr-invoice-amounts</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/apple-search-ads-app-store-rank-180-to-1</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/raise-ltv-70-to-350-deposit-tiers</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/improve-signup-to-first-deposit-conversion</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/answers/ekatra-shark-tank-50k-to-2m</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

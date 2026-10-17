@@ -6,6 +6,7 @@ import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Blog from "@/components/Blog";
+import HomeFAQ from "@/components/HomeFAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -104,6 +105,10 @@ export default function HomePage() {
 
         <div ref={blogRef} id="blog">
           <Blog />
+        </div>
+
+        <div id="faq">
+          <HomeFAQ />
         </div>
 
         <div ref={contactRef} id="contact">

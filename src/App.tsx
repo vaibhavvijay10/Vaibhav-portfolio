@@ -18,6 +18,8 @@ const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const TopicPage = lazy(() => import("./pages/TopicPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
+const AnswersPage = lazy(() => import("./pages/AnswersPage"));
+const AnswerPage = lazy(() => import("./pages/AnswerPage"));
 
 export default function App() {
   return (
@@ -40,6 +42,10 @@ export default function App() {
               <Route path="/projects/:slug">
                 {(params) => <ProjectDetailPage slug={params.slug} />}
               </Route>
+              <Route path="/answers/:slug">
+                {(params) => <AnswerPage slug={params.slug} />}
+              </Route>
+              <Route path="/answers" component={AnswersPage} />
               <Route path="/projects" component={ProjectsPage} />
               <Route path="/about" component={AboutPage} />
               <Route path="/services" component={ServicesPage} />
