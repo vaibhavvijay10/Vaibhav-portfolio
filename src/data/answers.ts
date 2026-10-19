@@ -136,6 +136,10 @@ export const answers: Answer[] = [
       {
         "href": "/answers/verify-ocr-invoice-amounts",
         "label": "How to stop OCR misreading invoice amounts"
+      },
+      {
+        "href": "/answers/build-internal-tools-with-claude-2-days",
+        "label": "How long it took to build with Claude"
       }
     ]
   },
@@ -202,6 +206,10 @@ export const answers: Answer[] = [
       {
         "href": "/answers/cost-to-automate-invoice-follow-ups-india",
         "label": "What the whole invoice system costs to run"
+      },
+      {
+        "href": "/answers/build-internal-tools-with-claude-2-days",
+        "label": "Building the tracker with Claude, and the ₹423 bug"
       }
     ]
   },
@@ -504,6 +512,402 @@ export const answers: Answer[] = [
       {
         "href": "/topics/retention-and-lifecycle",
         "label": "More on retention and CRM"
+      },
+      {
+        "href": "/answers/indian-gifting-company-first-us-enterprise-contract",
+        "label": "How Ekatra won its first US enterprise contract"
+      }
+    ]
+  },
+  {
+    "slug": "automate-attendance-payroll-biometric-export",
+    "question": "How do you automate attendance and payroll from a biometric machine export?",
+    "shortAnswer": "Upload the machine's export as it is, map each device ID to an employee, and run every punch through a rule engine for grace, half-day tiers, minimum hours and overtime in 30-minute blocks. The HR system I built for Ekatra does this for a roster of 12 office and 26 production staff, with 36 unit tests pinning the agreed numbers.",
+    "description": "36 unit tests pin the payroll rules. How Ekatra turns biometric attendance exports into half days, overtime in 30-minute blocks and a payroll preview.",
+    "isoDate": "2026-10-20",
+    "tags": [
+      "Automation",
+      "Workflow",
+      "Small Business India",
+      "HR"
+    ],
+    "sections": [
+      {
+        "heading": "Which rules does the engine apply?",
+        "table": {
+          "caption": "Attendance and pay rules in the Ekatra HR system",
+          "columns": [
+            "Rule",
+            "What it decides"
+          ],
+          "rows": [
+            [
+              "Grace and forgiven instances",
+              "Whether a late punch counts against the employee"
+            ],
+            [
+              "Half-day tiers",
+              "When a short day becomes a half day"
+            ],
+            [
+              "Minimum hours",
+              "Whether a day counts as worked"
+            ],
+            [
+              "Free half days, PL and LOP",
+              "Which absences are paid and which are deducted"
+            ],
+            [
+              "Overtime",
+              "Counted on hours worked, with a free hour, in 30-minute blocks and with caps"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "How does the machine export get in?",
+        "paragraphs": [
+          "The biometric machine's Excel report can be uploaded as it is, and the browser converts it. Any CSV with a header row also works: the parser finds the ID column and the date and time columns, and reads slashed dates day-first.",
+          "HR sees a preview before anything is saved. Device IDs not yet linked to an employee are listed for mapping, punches are stored so duplicates can't double count, and the original file is kept."
+        ]
+      },
+      {
+        "heading": "Why pin the rules with tests?",
+        "paragraphs": [
+          "Pay rules are agreed once and questioned every month. The 36 unit tests fix the agreed numbers, so a change that would shift a salary calculation shows up as a failing test. Office and production staff each get their own shifts and rule settings."
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What does HR see at month end?",
+        "a": "A month grid with each person's present days, half days, LOP days, overtime hours and projected salary, plus a separate payroll view for the CA."
+      },
+      {
+        "q": "Who can log in?",
+        "a": "Five roles: admin, HR, CA, manager and employee. Employees get a self-service home; admins see attendance, people, leave, bills, payroll, incentives and uploads."
+      }
+    ],
+    "related": [
+      {
+        "href": "/answers/build-internal-tools-with-claude-2-days",
+        "label": "How long internal tools take to build with Claude"
+      },
+      {
+        "href": "/answers/cost-to-automate-invoice-follow-ups-india",
+        "label": "The invoice tracker built on the same stack"
+      },
+      {
+        "href": "/topics/automation-and-operations",
+        "label": "More on automation and operations"
+      }
+    ]
+  },
+  {
+    "slug": "track-b2b-dispatches-bus-railway-courier",
+    "question": "How do you track B2B dispatches across bus, railway and courier?",
+    "shortAnswer": "Keep every dispatch in one shared record that knows its mode: courier shipments get a tracking link built from the carrier's URL template, while bus and railway shipments are tracked by status. DispatchOps, the portal I built for Ekatra Handmade, also flags an e-way bill on any invoice above ₹50,000 and reads tracking details from a photo of the courier sticker.",
+    "description": "₹50,000 is the e-way bill line. How a shared dispatch portal tracks B2B shipments by bus, railway and courier, with sticker OCR and carrier tracking links.",
+    "isoDate": "2026-10-20",
+    "tags": [
+      "Automation",
+      "Workflow",
+      "Small Business India",
+      "Logistics"
+    ],
+    "sections": [
+      {
+        "heading": "How is each mode tracked?",
+        "table": {
+          "caption": "Dispatch modes in DispatchOps",
+          "columns": [
+            "Mode",
+            "How it is tracked"
+          ],
+          "rows": [
+            [
+              "Courier",
+              "Link built from the carrier's URL template and the tracking number"
+            ],
+            [
+              "Bus",
+              "Status updates only, no carrier tracking link"
+            ],
+            [
+              "Railway",
+              "Status updates only, no carrier tracking link"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Which carriers are set up?",
+        "paragraphs": [
+          "Blue Dart, DTDC, Delhivery, Shri Maruti, FedEx, XpressBees, Ekart, Ecom Express and Shadowfax, plus bus and railway. Each courier's tracking URL is stored once, so the team never builds a link by hand."
+        ]
+      },
+      {
+        "heading": "What stops a shipment going out wrong?",
+        "bullets": [
+          "The e-way bill box ticks itself and a warning shows when the invoice value is above ₹50,000",
+          "E-way bill steps sit in the status flow before dispatched, in transit, out for delivery and delivered",
+          "Hard-stop flags block a dispatch from moving on until an admin clears them",
+          "Sent emails are logged as an audit trail"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How does sticker OCR work?",
+        "a": "Upload a photo of the courier sticker and OCR running in the browser pulls out the tracking details. If it can't read the sticker, the details are typed in by hand."
+      },
+      {
+        "q": "Who can use the portal?",
+        "a": "The whole team, with four roles: admin, ops, sales and viewer. It is a single web page backed by a shared database, so there is no app to install."
+      }
+    ],
+    "related": [
+      {
+        "href": "/answers/automate-attendance-payroll-biometric-export",
+        "label": "Automating attendance and payroll for the same business"
+      },
+      {
+        "href": "/answers/indian-gifting-company-first-us-enterprise-contract",
+        "label": "How Ekatra won its first US enterprise contract"
+      },
+      {
+        "href": "/topics/automation-and-operations",
+        "label": "More on automation and operations"
+      }
+    ]
+  },
+  {
+    "slug": "indian-gifting-company-first-us-enterprise-contract",
+    "question": "How did an Indian gifting company win its first US enterprise contract?",
+    "shortAnswer": "By meeting buyers in person at trade expos and buyer meets, with a corporate gifting line already built for companies to buy. At Ekatra, an Indian handmade gifting business, that export channel turned the first US enterprise account into a ₹1.4 Cr contract.",
+    "description": "₹1.4 Cr from the first US enterprise account. How Ekatra, an Indian handmade gifting company, opened exports through trade expos and buyer meets.",
+    "isoDate": "2026-10-20",
+    "tags": [
+      "Go-to-Market",
+      "B2B",
+      "Exports"
+    ],
+    "sections": [
+      {
+        "heading": "What does the B2B side look like now?",
+        "table": {
+          "caption": "Ekatra's B2B gifting business, 2026",
+          "columns": [
+            "Item",
+            "Detail"
+          ],
+          "rows": [
+            [
+              "Export channel",
+              "Trade expos and buyer meets"
+            ],
+            [
+              "First US enterprise account",
+              "Converted into a ₹1.4 Cr contract"
+            ],
+            [
+              "Largest bulk orders",
+              "Up to 30,000 units in one run"
+            ],
+            [
+              "Teams supplied",
+              "Google, Microsoft, Netflix and Salesforce"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Why trade expos and buyer meets?",
+        "paragraphs": [
+          "A first export deal needs trust before it needs a price. Expos and buyer meets put a handmade product in front of buyers in person, which a catalogue or an email can't do."
+        ]
+      },
+      {
+        "heading": "What had to be in place first?",
+        "paragraphs": [
+          "A corporate gifting line designed for companies: a catalogue, customisation options and pricing tiers. In India it had already turned one-off buyers into repeat enterprise accounts, and the business can deliver bulk orders as large as 30,000 units in one run."
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Which companies does Ekatra supply?",
+        "a": "Its B2B gifting platform supplies teams at Google, Microsoft, Netflix and Salesforce."
+      }
+    ],
+    "related": [
+      {
+        "href": "/answers/ekatra-shark-tank-50k-to-2m",
+        "label": "How Ekatra grew from $50K to $2M after Shark Tank India"
+      },
+      {
+        "href": "/answers/track-b2b-dispatches-bus-railway-courier",
+        "label": "How Ekatra tracks B2B dispatches"
+      },
+      {
+        "href": "/blog/ai-agent-found-what-our-dashboard-was-hiding",
+        "label": "My AI agent found the problem our dashboard was hiding"
+      }
+    ]
+  },
+  {
+    "slug": "improve-csat-response-time-customer-experience",
+    "question": "How do you improve CSAT and response time in a customer experience team?",
+    "shortAnswer": "Run customer experience as a product: one roadmap and KPI framework, PRDs with success metrics agreed with engineering, and segmentation, lifecycle journeys and automated triggers built into the platform. On a customer experience platform I managed at OptiServ Consulting, that lifted CSAT 9% and repeat usage 15% and improved response time 27%.",
+    "description": "CSAT up 9%, response time improved 27%, repeat usage up 15%. How a product roadmap, KPI framework and a 25-member team lifted customer experience.",
+    "isoDate": "2026-10-20",
+    "tags": [
+      "Customer Experience",
+      "Product Management",
+      "CRM",
+      "Lifecycle"
+    ],
+    "sections": [
+      {
+        "heading": "What moved?",
+        "table": {
+          "caption": "Customer experience platform, OptiServ Consulting, Dec 2025 to Feb 2026",
+          "columns": [
+            "Metric",
+            "Change"
+          ],
+          "rows": [
+            [
+              "CSAT",
+              "+9%"
+            ],
+            [
+              "Response time",
+              "27% better"
+            ],
+            [
+              "Repeat usage",
+              "+15%"
+            ],
+            [
+              "Team",
+              "25 people across Product, CX, QA and Ops"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "What went into the platform?",
+        "bullets": [
+          "Customer segmentation",
+          "Lifecycle journeys",
+          "Automated triggers",
+          "PRDs and user stories with success metrics, written with engineering"
+        ]
+      },
+      {
+        "heading": "What did the team own?",
+        "paragraphs": [
+          "A 25-member cross-functional team across Product, CX, QA and Ops owned client onboarding, escalation paths and the reporting cadence the account now runs on."
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Why treat customer experience as a product?",
+        "a": "CSAT and response time move when the system changes, not only when people work harder. A roadmap and KPI framework make each change measurable."
+      }
+    ],
+    "related": [
+      {
+        "href": "/topics/retention-and-lifecycle",
+        "label": "More on retention, lifecycle and CRM"
+      }
+    ]
+  },
+  {
+    "slug": "build-internal-tools-with-claude-2-days",
+    "question": "How much faster is building internal tools with Claude?",
+    "shortAnswer": "About two days instead of an estimated three to four weekends, for the first version of Ekatra's invoice tracker: the dashboard, logins and OCR pipeline, built with Claude as a pair programmer. It replaced a Google Sheet in April 2026 and runs for about ₹470 a month.",
+    "description": "About 2 days versus 3 to 4 weekends by hand. What building Ekatra's invoice tracker with Claude as a pair programmer sped up, and what still needed a human.",
+    "isoDate": "2026-10-20",
+    "tags": [
+      "AI",
+      "Anthropic",
+      "Automation",
+      "Productivity"
+    ],
+    "sections": [
+      {
+        "heading": "What got built in two days?",
+        "table": {
+          "caption": "First version of the Ekatra invoice tracker, April 2026",
+          "columns": [
+            "Part",
+            "What it does"
+          ],
+          "rows": [
+            [
+              "Dashboard",
+              "Six pages with KPIs, ageing buckets and top debtors"
+            ],
+            [
+              "Logins",
+              "Email and password accounts for the team"
+            ],
+            [
+              "OCR pipeline",
+              "Reads invoice PDFs dropped in the team's WhatsApp group"
+            ],
+            [
+              "Build time",
+              "About 2 days, against 3 to 4 weekends estimated by hand"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "What did Claude not replace?",
+        "paragraphs": [
+          "Judgement about data. In August 2026 the team reported a ₹423 invoice showing as ₹9.5 crore: the extractor had read the 8-digit HSN product code as the total. The fix was a rule a person had to choose, that every amount must match the amount-in-words line. Re-checking every invoice against its PDF fixed 2 rows and restored 6 lost invoices."
+        ]
+      },
+      {
+        "heading": "Which habits kept fast building safe?",
+        "bullets": [
+          "New features go in new files, leaving working code untouched",
+          "Every feature ships with a rollback path, such as a tagged stable version",
+          "Features are proven in production with throwaway test data, then deleted",
+          "Human edits outrank machine input: a re-scan can never overwrite a correction"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Which Claude model was used?",
+        "a": "Claude Sonnet 4.5, as a pair programmer."
+      },
+      {
+        "q": "Does it need a developer to keep it running?",
+        "a": "No. It runs unattended on Cloudflare and one small server, and the repo holds the project's history and reasoning so any engineer or AI assistant can pick it up."
+      }
+    ],
+    "related": [
+      {
+        "href": "/answers/cost-to-automate-invoice-follow-ups-india",
+        "label": "What the invoice system costs to run"
+      },
+      {
+        "href": "/answers/verify-ocr-invoice-amounts",
+        "label": "How to stop OCR misreading invoice amounts"
+      },
+      {
+        "href": "/blog/whatsapp-invoice-automation-india",
+        "label": "The full build story: WhatsApp invoice automation"
+      },
+      {
+        "href": "/topics/automation-and-operations",
+        "label": "More on automation and operations"
       }
     ]
   }

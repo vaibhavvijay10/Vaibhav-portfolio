@@ -208,6 +208,8 @@ function parseBlock(block) {
     content: pluckTemplate(block, "content") ?? "",
     date: pluck(block, "date"),
     isoDate: pluck(block, "isoDate"),
+    dateModified: pluck(block, "dateModified"),
+    updatedIsoDate: pluck(block, "updatedIsoDate"),
     linkedinUrl: pluck(block, "linkedinUrl"),
     infographicUrl: pluck(block, "infographicUrl"),
     gallery: pluckGallery(block),
@@ -227,10 +229,119 @@ function escapeJson(s) {
   return JSON.stringify(s).slice(1, -1);
 }
 
+// ============================================================================
+// SEO helpers. These mirror src/lib/seo.ts so the static HTML (for crawlers
+// that do not run JavaScript) and the SPA (for Google, which does) produce the
+// same <title> and meta description. Change both together.
+// ============================================================================
+const BRAND_SUFFIX = " | Vaibhav Vijay";
+const TITLE_MAX = 60;
+const DESC_MAX = 160;
+const DESC_MIN = 120;
+const PERSON_ID = `${SITE_URL}/#person`;
+
+const SEO_OVERRIDES = JSON.parse(
+  await fs.readFile(path.join(ROOT, "src", "data", "seo-overrides.json"), "utf-8")
+);
+
+function seoTitle(base) {
+  const withBrand = `${base}${BRAND_SUFFIX}`;
+  return withBrand.length <= TITLE_MAX ? withBrand : base;
+}
+
+function seoDescription(text) {
+  const t = String(text ?? "").replace(/\s+/g, " ").trim();
+  if (t.length <= DESC_MAX) return t;
+  const sentences = t.match(/[^.!?]+[.!?]+(\s|$)/g) ?? [t];
+  let out = "";
+  for (const s of sentences) {
+    if ((out + s).trim().length > DESC_MAX) break;
+    out += s;
+  }
+  out = out.trim();
+  if (out.length >= DESC_MIN) return out;
+  const cut = t.slice(0, DESC_MAX - 1);
+  return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:\s—–-]+$/, "") + "…";
+}
+
+const blogTitle = (post) => seoTitle(SEO_OVERRIDES.blog?.[post.slug]?.title ?? post.title);
+const answerTitle = (a) => seoTitle(SEO_OVERRIDES.answers?.[a.slug]?.title ?? a.question);
+
+// Related answers for a blog post (mirror of getRelatedAnswers in src/lib/seo.ts)
+const GENERIC_TAGS = new Set(["ai", "india", "strategy", "marketing", "growth", "cost", "b2b"]);
+const normTag = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+function tagScore(a, b) {
+  const na = normTag(a);
+  const nb = normTag(b);
+  if (!na || !nb) return 0;
+  if (na === nb) return GENERIC_TAGS.has(na) ? 0 : 2;
+  const [short, long] = na.length <= nb.length ? [na, nb] : [nb, na];
+  if (GENERIC_TAGS.has(short)) return 0;
+  const longWords = new Set(long.split(" "));
+  return short.split(" ").every((w) => longWords.has(w)) ? 1 : 0;
+}
+const SLUG_STOPWORDS = new Set(["with", "from", "your", "what", "does", "have", "that", "this", "into", "india", "biggest"]);
+const slugWords = (slug) => new Set(slug.split("-").filter((w) => w.length >= 4 && !SLUG_STOPWORDS.has(w)));
+function getRelatedAnswers(post, answers, limit = 3) {
+  const postWords = slugWords(post.slug);
+  return answers
+    .map((a) => {
+      const tagPoints = a.tags.reduce(
+        (sum, at) => sum + Math.max(0, ...post.tags.map((pt) => tagScore(pt, at))),
+        0
+      );
+      const slugPoints = [...slugWords(a.slug)].filter((w) => postWords.has(w)).length * 2;
+      return { a, tagPoints, score: tagPoints + slugPoints };
+    })
+    .filter((x) => x.tagPoints > 0)
+    .sort((x, y) => y.score - x.score || y.a.isoDate.localeCompare(x.a.isoDate))
+    .slice(0, limit)
+    .map((x) => x.a);
+}
+
+// Related posts (mirror of getRelatedPosts in src/data/topics.ts)
+function getRelatedPosts(post, posts, limit = 3) {
+  const postTags = new Set(post.tags.map((t) => t.toLowerCase()));
+  return posts
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => ({ post: p, overlap: p.tags.filter((t) => postTags.has(t.toLowerCase())).length }))
+    .filter((x) => x.overlap > 0)
+    .sort((a, b) => b.overlap - a.overlap || b.post.isoDate.localeCompare(a.post.isoDate))
+    .slice(0, limit)
+    .map((x) => x.post);
+}
+
+function breadcrumbLd(trail) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map(([name, item], i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name,
+      item,
+    })),
+  };
+}
+
+/** A JSON-LD block with a fixed element id. Using the same id the SPA uses
+ * means the SPA replaces the block on mount instead of adding a duplicate. */
+const ld = (id, data) => ({ __id: id, data });
+
+/** index.html carries a WebPage and BreadcrumbList that describe the homepage
+ * only. Remove them from every other route's head. */
+function stripHomeOnlyBlocks(head) {
+  return head.replace(
+    /\s*<!--[^>]*?-->\s*(?=<script type="application\/ld\+json" data-home-only)/g,
+    "\n    "
+  ).replace(/<script type="application\/ld\+json" data-home-only(?:="")?>[\s\S]*?<\/script>\s*/g, "");
+}
+
 function buildHead(post, baseHead) {
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const title = `${post.title} | Vaibhav Vijay`;
-  const description = post.excerpt;
+  const title = blogTitle(post);
+  warnLongTitle(`/blog/${post.slug}`, title);
+  const description = seoDescription(post.excerpt);
   const image = post.infographicUrl
     ? `${SITE_URL}${post.infographicUrl}`
     : `${SITE_URL}/og-vaibhav-vijay.jpg`;
@@ -315,61 +426,64 @@ function buildHead(post, baseHead) {
     `<meta name="twitter:image:alt" content="${escapeHtml(post.title)}"`
   );
 
-  // Inject BlogPosting JSON-LD just before </head>
+  // Inject BlogPosting JSON-LD just before </head>. dateModified uses an
+  // optional `dateModified` / `updatedIsoDate` field on the post when present.
+  const modified = post.dateModified ?? post.updatedIsoDate ?? post.isoDate;
   const blogPostingLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "@id": `${url}#blogposting`,
     headline: post.title,
-    description: description,
+    description: post.excerpt,
     image: [image],
     datePublished: post.isoDate,
-    dateModified: post.isoDate,
+    dateModified: modified,
     url: url,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     keywords: post.tags.join(", "),
     author: {
       "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
+      "@id": PERSON_ID,
       name: "Vaibhav Vijay",
       url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
+      "@id": PERSON_ID,
       name: "Vaibhav Vijay",
     },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
     articleSection: post.tags[0],
     inLanguage: "en",
+    wordCount: post.content.split(/\s+/).filter(Boolean).length,
     articleBody: post.content,
   };
 
-  const ldScript = `<script type="application/ld+json" id="blog-post-jsonld">${escapeJson(
-    JSON.stringify(blogPostingLd)
-  )
-    .replace(/\\n/g, "\\n")
-    .replace(/</g, "\\u003c")}</script>`;
+  const blocks = [
+    `<script type="application/ld+json" id="blog-post-jsonld">${JSON.stringify(
+      blogPostingLd
+    ).replace(/</g, "\\u003c")}</script>`,
+    `<script type="application/ld+json" id="blog-breadcrumb-jsonld">${JSON.stringify(
+      breadcrumbLd([
+        ["Home", `${SITE_URL}/`],
+        [post.title, url],
+      ])
+    ).replace(/</g, "\\u003c")}</script>`,
+  ];
 
-  // Re-parse to use safer JSON output (the escapeJson hack above isn't ideal)
-  const cleanLdScript = `<script type="application/ld+json" id="blog-post-jsonld">${JSON.stringify(
-    blogPostingLd
-  ).replace(/</g, "\\u003c")}</script>`;
-
-  head = head.replace("</head>", `${cleanLdScript}\n  </head>`);
-
-  // Quietly drop the unused early-binding variable
-  void ldScript;
+  head = head.replace("</head>", `${blocks.join("\n  ")}\n  </head>`);
 
   return head;
 }
 
-function buildBodyPreview(post) {
+function buildBodyPreview(post, posts, answers) {
   // Inject a hidden but crawlable text block so non-JS crawlers (GPTBot,
   // ClaudeBot) can read the full post content even before the SPA mounts.
   const url = `${SITE_URL}/blog/${post.slug}`;
   const safeTitle = escapeHtml(post.title);
-  const safeContent = escapeHtml(post.content).replace(/\n/g, "<br>");
   const safeTags = post.tags.map(escapeHtml).join(", ");
+  const relatedAnswers = getRelatedAnswers(post, answers, 3);
+  const relatedPosts = getRelatedPosts(post, posts, 3);
 
   return `
     <noscript>
@@ -387,6 +501,23 @@ function buildBodyPreview(post) {
         ${renderInterleavedBody(post)}
         <p><a href="${escapeHtml(post.linkedinUrl)}">Read &amp; engage on LinkedIn</a></p>
         <p><a href="${url}">Permalink</a></p>
+        ${
+          relatedAnswers.length
+            ? `<section><h2>Related answers</h2><ul>${relatedAnswers
+                .map(
+                  (a) =>
+                    `<li><a href="/answers/${escapeHtml(a.slug)}">${escapeHtml(a.question)}</a><br>${escapeHtml(a.shortAnswer)}</li>`
+                )
+                .join("")}</ul></section>`
+            : ""
+        }
+        ${
+          relatedPosts.length
+            ? `<section><h2>Related articles</h2><ul>${relatedPosts
+                .map((p) => `<li><a href="/blog/${escapeHtml(p.slug)}">${escapeHtml(p.title)}</a></li>`)
+                .join("")}</ul></section>`
+            : ""
+        }
       </article>
     </noscript>`;
 }
@@ -447,6 +578,7 @@ function buildStaticHead(opts, baseHead) {
     description,
     ogType = "website",
     ogImage = `${SITE_URL}/og-vaibhav-vijay.jpg`,
+    ogTitle = opts.title,
     jsonLdBlocks = [],
   } = opts;
 
@@ -480,7 +612,7 @@ function buildStaticHead(opts, baseHead) {
   );
   head = head.replace(
     /<meta property="og:title" content="[^"]*"/,
-    `<meta property="og:title" content="${escapeHtml(title)}"`
+    `<meta property="og:title" content="${escapeHtml(ogTitle)}"`
   );
   head = head.replace(
     /<meta property="og:description" content="[^"]*"/,
@@ -504,7 +636,7 @@ function buildStaticHead(opts, baseHead) {
   );
   head = head.replace(
     /<meta name="twitter:title" content="[^"]*"/,
-    `<meta name="twitter:title" content="${escapeHtml(title)}"`
+    `<meta name="twitter:title" content="${escapeHtml(ogTitle)}"`
   );
   head = head.replace(
     /<meta name="twitter:description" content="[^"]*"/,
@@ -514,15 +646,22 @@ function buildStaticHead(opts, baseHead) {
     /<meta name="twitter:image" content="[^"]*"/g,
     `<meta name="twitter:image" content="${ogImage}"`
   );
+  head = head.replace(
+    /<meta name="twitter:image:alt" content="[^"]*"/,
+    `<meta name="twitter:image:alt" content="${escapeHtml(title)}"`
+  );
 
-  // Inject any extra JSON-LD blocks before </head>
+  // Inject any extra JSON-LD blocks before </head>. Blocks made with ld(id, data)
+  // keep the id the SPA uses, so the SPA replaces them instead of duplicating.
   const ldScripts = jsonLdBlocks
-    .map(
-      (block, i) =>
-        `<script type="application/ld+json" id="static-page-jsonld-${i}">${JSON.stringify(
-          block
-        ).replace(/</g, "\\u003c")}</script>`
-    )
+    .map((block, i) => {
+      const id = block.__id ?? `static-page-jsonld-${i}`;
+      const data = block.__id ? block.data : block;
+      return `<script type="application/ld+json" id="${id}">${JSON.stringify(data).replace(
+        /</g,
+        "\\u003c"
+      )}</script>`;
+    })
     .join("\n  ");
   if (ldScripts) {
     head = head.replace("</head>", `${ldScripts}\n  </head>`);
@@ -531,7 +670,15 @@ function buildStaticHead(opts, baseHead) {
   return head;
 }
 
+function warnLongTitle(route, title) {
+  if (title.length > TITLE_MAX)
+    console.warn(
+      `[seo] <title> is ${title.length} chars on ${route} (aim for ${TITLE_MAX} or less). Add a short title for this slug to src/data/seo-overrides.json`
+    );
+}
+
 async function writeStaticPage(relativePath, opts, noscriptBody, fullHead, baseBody) {
+  warnLongTitle(`/${relativePath}`, opts.title);
   const newHead = buildStaticHead(opts, fullHead);
   const newBody = baseBody.replace("<body>", `<body>${noscriptBody}`);
   const html = `<!doctype html>\n<html lang="en">\n${newHead}\n${newBody}`;
@@ -587,10 +734,11 @@ const ABOUT_FAQS = [
 
 async function prerenderAboutPage(fullHead, baseBody) {
   const url = `${SITE_URL}/about`;
+  // Keep title and description in sync with src/pages/AboutPage.tsx
   const title =
     "About Vaibhav Vijay | Product Manager & Head of Growth";
   const description =
-    "Vaibhav Vijay is a Product Manager and Head of Growth with 7+ years taking products from 0 to 1 across India and international markets. App from #180 to #1, LTV grown 5x, four AI automation systems shipped. Based in India, available for product, growth and consulting roles globally.";
+    "About Vaibhav Vijay, Product Manager and Head of Growth in India: 7+ years of 0 to 1 launches, an app taken from #180 to #1 and customer LTV grown 5x.";
 
   const aboutPageLd = {
     "@context": "https://schema.org",
@@ -635,7 +783,11 @@ async function prerenderAboutPage(fullHead, baseBody) {
       title,
       description,
       ogType: "profile",
-      jsonLdBlocks: [aboutPageLd, faqLd],
+      jsonLdBlocks: [
+        ld("about-page-jsonld", aboutPageLd),
+        ld("about-faq-jsonld", faqLd),
+        ld("about-breadcrumb-jsonld", breadcrumbLd([["Home", `${SITE_URL}/`], ["About", url]])),
+      ],
     },
     noscript,
     fullHead,
@@ -692,10 +844,10 @@ async function loadServices() {
 async function prerenderServicesPage(fullHead, baseBody) {
   const services = await loadServices();
   const url = `${SITE_URL}/services`;
-  const title =
-    "Services | Vaibhav Vijay — Growth & Performance Marketing Consulting";
+  // Keep title and description in sync with src/pages/ServicesPage.tsx
+  const title = "Growth & Performance Marketing Services | Vaibhav Vijay";
   const description =
-    "Fractional Head of Growth, performance marketing optimization, lifecycle CRM, CRO, AI marketing and GTM strategy for startups and digital-first brands. India-based, working globally.";
+    "Fractional Head of Growth, performance marketing optimization, lifecycle CRM, CRO, AI marketing and GTM strategy for startups and digital-first brands.";
 
   const collectionLd = {
     "@context": "https://schema.org",
@@ -759,7 +911,15 @@ async function prerenderServicesPage(fullHead, baseBody) {
 
   await writeStaticPage(
     "services",
-    { url, title, description, jsonLdBlocks: [collectionLd] },
+    {
+      url,
+      title,
+      description,
+      jsonLdBlocks: [
+        ld("services-collection-jsonld", collectionLd),
+        ld("services-breadcrumb-jsonld", breadcrumbLd([["Home", `${SITE_URL}/`], ["Services", url]])),
+      ],
+    },
     noscript,
     fullHead,
     baseBody
@@ -815,7 +975,7 @@ async function prerenderTopicPages(fullHead, baseBody, posts) {
   const topics = await loadTopics();
   for (const topic of topics) {
     const url = `${SITE_URL}/topics/${topic.slug}`;
-    const title = `${topic.title} | Vaibhav Vijay`;
+    const title = seoTitle(topic.title);
     const tagSet = new Set(topic.matchTags.map((t) => t.toLowerCase()));
     const topicPosts = posts.filter((p) =>
       (p.tags ?? []).some((t) => tagSet.has(t.toLowerCase()))
@@ -879,8 +1039,11 @@ async function prerenderTopicPages(fullHead, baseBody, posts) {
       {
         url,
         title,
-        description: topic.description,
-        jsonLdBlocks: [collectionLd],
+        description: seoDescription(topic.description),
+        jsonLdBlocks: [
+          ld("topic-jsonld", collectionLd),
+          ld("topic-breadcrumb-jsonld", breadcrumbLd([["Home", `${SITE_URL}/`], [topic.shortTitle || topic.title, url]])),
+        ],
       },
       noscript,
       fullHead,
@@ -953,9 +1116,10 @@ async function prerenderProjectPages(fullHead, baseBody) {
   const indexUrl = `${SITE_URL}/projects`;
 
   // --- /projects index ---
+  // Keep title and description in sync with src/pages/ProjectsPage.tsx
   const indexTitle = "Projects | Vaibhav Vijay — Product, AI and Growth Builds";
   const indexDesc =
-    "Things Vaibhav Vijay has built: AlphaPulse (algorithmic trading engine), Karmic.ai (AI first mobile app), and WinningKings (0-to-1 casino brand launch in India). Architecture, approach and what each one taught.";
+    "Things Vaibhav Vijay has built: AlphaPulse (algorithmic trading engine), Karmic.ai (AI first mobile app) and WinningKings (casino brand launch in India).";
 
   const indexLd = {
     "@context": "https://schema.org",
@@ -997,7 +1161,15 @@ async function prerenderProjectPages(fullHead, baseBody) {
 
   await writeStaticPage(
     "projects",
-    { url: indexUrl, title: indexTitle, description: indexDesc, jsonLdBlocks: [indexLd] },
+    {
+      url: indexUrl,
+      title: indexTitle,
+      description: indexDesc,
+      jsonLdBlocks: [
+        ld("projects-collection-jsonld", indexLd),
+        ld("projects-breadcrumb-jsonld", breadcrumbLd([["Home", `${SITE_URL}/`], ["Projects", indexUrl]])),
+      ],
+    },
     indexNoscript,
     fullHead,
     baseBody
@@ -1006,7 +1178,7 @@ async function prerenderProjectPages(fullHead, baseBody) {
   // --- /projects/<slug> detail pages ---
   for (const p of projects) {
     const url = `${indexUrl}/${p.slug}`;
-    const title = `${p.name} — ${p.tagline} | Vaibhav Vijay`;
+    const title = seoTitle(`${p.name} — ${p.tagline}`);
 
     const projectLd = {
       "@context": "https://schema.org",
@@ -1055,9 +1227,19 @@ async function prerenderProjectPages(fullHead, baseBody) {
       {
         url,
         title,
-        description: p.excerpt,
+        description: seoDescription(p.excerpt),
         ogType: "article",
-        jsonLdBlocks: [projectLd],
+        jsonLdBlocks: [
+          ld("project-jsonld", projectLd),
+          ld(
+            "project-breadcrumb-jsonld",
+            breadcrumbLd([
+              ["Home", `${SITE_URL}/`],
+              ["Projects", indexUrl],
+              [p.name, url],
+            ])
+          ),
+        ],
       },
       noscript,
       fullHead,
@@ -1114,10 +1296,10 @@ function renderAnswerTable(t) {
   </table>`;
 }
 
-async function prerenderAnswerPages(fullHead, baseBody) {
-  const answers = await loadJsonArray("answers.ts", "export const answers");
+async function prerenderAnswerPages(fullHead, baseBody, answers) {
   const hubUrl = `${SITE_URL}/answers`;
-  const hubTitle = "Answers | Vaibhav Vijay — Short answers backed by real numbers";
+  // Keep in sync with src/pages/AnswersPage.tsx
+  const hubTitle = "Short Answers Backed by Real Numbers | Vaibhav Vijay";
   const hubDesc =
     "Short, data-backed answers on automation costs, Apple Search Ads, LTV, conversion and go-to-market, each built on numbers from products Vaibhav Vijay has run.";
 
@@ -1223,7 +1405,14 @@ async function prerenderAnswerPages(fullHead, baseBody) {
     </noscript>`;
     await writeStaticPage(
       `answers/${a.slug}`,
-      { url, title: `${a.question} | Vaibhav Vijay`, description: a.description, ogType: "article", jsonLdBlocks: [articleLd, faqLd, crumbs] },
+      {
+        url,
+        title: answerTitle(a),
+        ogTitle: a.question,
+        description: seoDescription(a.description),
+        ogType: "article",
+        jsonLdBlocks: [articleLd, faqLd, crumbs],
+      },
       noscript,
       fullHead,
       baseBody
@@ -1270,12 +1459,222 @@ ${items}
   console.log(`[prerender] wrote dist/rss.xml (${posts.length} items)`);
 }
 
+// ----- llms.txt (refreshed lists) + llms-full.txt (full text) -----
+const mdCell = (s) => String(s).replace(/\|/g, "\\|").replace(/\n+/g, " ");
+
+function answerToMarkdown(a) {
+  const out = [
+    `## ${a.question}`,
+    "",
+    `URL: ${SITE_URL}/answers/${a.slug}`,
+    `Published: ${a.isoDate}`,
+    `Author: Vaibhav Vijay`,
+    a.tags?.length ? `Tags: ${a.tags.join(", ")}` : "",
+    "",
+    `**Short answer:** ${a.shortAnswer}`,
+    "",
+  ];
+  for (const s of a.sections ?? []) {
+    out.push(`### ${s.heading}`, "");
+    for (const p of s.paragraphs ?? []) out.push(p, "");
+    if (s.bullets?.length) out.push(...s.bullets.map((b) => `- ${b}`), "");
+    if (s.table) {
+      const t = s.table;
+      if (t.caption) out.push(`Table: ${t.caption}`, "");
+      out.push(`| ${t.columns.map(mdCell).join(" | ")} |`);
+      out.push(`| ${t.columns.map(() => "---").join(" | ")} |`);
+      for (const r of t.rows) out.push(`| ${r.map(mdCell).join(" | ")} |`);
+      out.push("");
+    }
+  }
+  if (a.faqs?.length) {
+    out.push("### Related questions", "");
+    for (const f of a.faqs) out.push(`**${f.q}**`, "", f.a, "");
+  }
+  if (a.related?.length) {
+    out.push("### Read next", "");
+    for (const r of a.related) {
+      const href = r.href.startsWith("/") ? `${SITE_URL}${r.href}` : r.href;
+      out.push(`- [${r.label}](${href})`);
+    }
+    out.push("");
+  }
+  return out.filter((l, i, arr) => !(l === "" && arr[i - 1] === "")).join("\n");
+}
+
+function postToMarkdown(p) {
+  return [
+    `## ${p.title}`,
+    "",
+    `URL: ${SITE_URL}/blog/${p.slug}`,
+    `Published: ${p.date} (${p.isoDate})`,
+    `Author: Vaibhav Vijay`,
+    p.tags?.length ? `Tags: ${p.tags.join(", ")}` : "",
+    p.linkedinUrl ? `Originally posted on LinkedIn: ${p.linkedinUrl}` : "",
+    "",
+    p.content.trim(),
+    "",
+  ]
+    .filter((l, i, arr) => !(l === "" && arr[i - 1] === ""))
+    .join("\n");
+}
+
+/** Split a markdown file into { preamble, sections: [{ heading, body }] } on "## " headings. */
+function splitMarkdownSections(md) {
+  const parts = md.split(/^(?=## )/m);
+  const preamble = parts[0];
+  const sections = parts.slice(1).map((chunk) => {
+    const nl = chunk.indexOf("\n");
+    return { heading: chunk.slice(3, nl).trim(), body: chunk.slice(nl + 1) };
+  });
+  return { preamble, sections };
+}
+
+async function writeLlmsFiles(posts, answers) {
+  const llmsPath = path.join(DIST, "llms.txt");
+  const llms = await fs.readFile(llmsPath, "utf-8");
+  const { preamble, sections } = splitMarkdownSections(llms);
+
+  // 1. dist/llms.txt: regenerate the Answers and Articles lists from the data
+  //    files so new pages show up without hand edits. Everything else in
+  //    public/llms.txt is kept as written.
+  const answersList =
+    answers
+      .map((a) => `- [${a.question}](${SITE_URL}/answers/${a.slug}): ${a.shortAnswer}`)
+      .join("\n") + "\n\n";
+  const articlesList =
+    posts.map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}), ${p.date}`).join("\n") + "\n\n";
+  for (const s of sections) {
+    if (/^Answers\b/i.test(s.heading)) s.body = `\n${answersList}`;
+    if (/^Articles\b/i.test(s.heading)) s.body = `\n${articlesList}`;
+  }
+  const rebuilt = preamble + sections.map((s) => `## ${s.heading}\n${s.body}`).join("");
+  await fs.writeFile(llmsPath, rebuilt, "utf-8");
+
+  // 2. dist/llms-full.txt: who Vaibhav is (facts reused from llms.txt), then
+  //    the full text of every answer page and every blog post.
+  const FACT_SECTIONS = /^(Key facts|Experience|Projects and systems built|Core expertise|Notable outcomes|Citation guidance)/i;
+  const summary = (preamble.match(/^>.*$/m) ?? [""])[0];
+  const facts = sections
+    .filter((s) => FACT_SECTIONS.test(s.heading))
+    .map((s) => `## ${s.heading}\n${s.body}`)
+    .join("");
+  const today = new Date().toISOString().slice(0, 10);
+
+  const full = [
+    "# Vaibhav Vijay: full text of vaibhavvijay.com",
+    "",
+    summary,
+    "",
+    `Generated: ${today}`,
+    "",
+    `This is the long form of llms.txt (${SITE_URL}/llms.txt). It holds the full text of every answer page and every article on vaibhavvijay.com, so AI assistants can read and cite them without crawling each page. The canonical URL of each item is listed under its heading; please cite that URL.`,
+    "",
+    facts.trim(),
+    "",
+    "---",
+    "",
+    `# Answers (${answers.length})`,
+    "",
+    "Short, data-backed answers. Each one is a single page on the site.",
+    "",
+    answers.map(answerToMarkdown).join("\n---\n\n"),
+    "",
+    "---",
+    "",
+    `# Articles (${posts.length})`,
+    "",
+    "Newest first.",
+    "",
+    posts.map(postToMarkdown).join("\n---\n\n"),
+    "",
+  ].join("\n");
+  await fs.writeFile(path.join(DIST, "llms-full.txt"), full, "utf-8");
+  console.log(
+    `[prerender] wrote dist/llms.txt (lists refreshed) and dist/llms-full.txt (${answers.length} answers, ${posts.length} articles, ${Math.round(full.length / 1024)} KB)`
+  );
+}
+
+// ----- sitemap.xml: add missing routes, bump stale lastmod, drop dead URLs -----
+async function syncSitemap(posts, answers) {
+  const smPath = path.join(DIST, "sitemap.xml");
+  let xml = await fs.readFile(smPath, "utf-8");
+  const topics = await loadTopics();
+  const projects = await loadProjects();
+  const maxDate = (dates) => dates.filter(Boolean).sort().at(-1);
+  const today = new Date().toISOString().slice(0, 10);
+  const latestPost = maxDate(posts.map((p) => p.dateModified ?? p.updatedIsoDate ?? p.isoDate));
+  const latestAnswer = maxDate(answers.map((a) => a.isoDate));
+
+  const routes = [
+    { loc: `${SITE_URL}/`, lastmod: maxDate([latestPost, latestAnswer]), priority: "1.0" },
+    { loc: `${SITE_URL}/about` },
+    { loc: `${SITE_URL}/services` },
+    { loc: `${SITE_URL}/projects` },
+    ...projects.map((p) => ({ loc: `${SITE_URL}/projects/${p.slug}`, priority: "0.9" })),
+    ...topics.map((t) => {
+      const tags = new Set(t.matchTags.map((x) => x.toLowerCase()));
+      const inTopic = posts.filter((p) => p.tags.some((x) => tags.has(x.toLowerCase())));
+      return { loc: `${SITE_URL}/topics/${t.slug}`, lastmod: maxDate(inTopic.map((p) => p.isoDate)), priority: "0.85" };
+    }),
+    { loc: `${SITE_URL}/answers`, lastmod: latestAnswer, priority: "0.9" },
+    ...answers.map((a) => ({ loc: `${SITE_URL}/answers/${a.slug}`, lastmod: a.isoDate, priority: "0.85" })),
+    ...posts.map((p) => ({
+      loc: `${SITE_URL}/blog/${p.slug}`,
+      lastmod: p.dateModified ?? p.updatedIsoDate ?? p.isoDate,
+      priority: "0.8",
+      image: p.infographicUrl ? { loc: `${SITE_URL}${p.infographicUrl}`, title: p.title } : null,
+    })),
+  ];
+  const known = new Set(routes.map((r) => r.loc));
+  let added = 0;
+  let bumped = 0;
+  let removed = 0;
+
+  // Drop <url> entries for generated sections whose page no longer exists
+  xml = xml.replace(/\s*<url>\s*<loc>([^<]+)<\/loc>[\s\S]*?<\/url>/g, (block, loc) => {
+    if (/\/(blog|answers|topics|projects)\/[^/]+$/.test(loc) && !known.has(loc)) {
+      removed++;
+      console.warn(`[sitemap] removed stale URL ${loc}`);
+      return "";
+    }
+    return block;
+  });
+
+  for (const r of routes) {
+    const re = new RegExp(
+      `(<loc>${r.loc.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")}</loc>(?:(?!</url>)[\\s\\S])*?<lastmod>)([^<]*)(</lastmod>)`
+    );
+    const m = xml.match(re);
+    if (m) {
+      if (r.lastmod && m[2] < r.lastmod) {
+        xml = xml.replace(re, `$1${r.lastmod}$3`);
+        bumped++;
+      }
+      continue;
+    }
+    if (xml.includes(`<loc>${r.loc}</loc>`)) continue;
+    const image = r.image
+      ? `\n    <image:image>\n      <image:loc>${escapeHtml(r.image.loc)}</image:loc>\n      <image:title>${escapeHtml(r.image.title)}</image:title>\n    </image:image>`
+      : "";
+    xml = xml.replace(
+      "</urlset>",
+      `  <url>\n    <loc>${r.loc}</loc>\n    <lastmod>${r.lastmod ?? today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${r.priority ?? "0.8"}</priority>${image}\n  </url>\n\n</urlset>`
+    );
+    added++;
+    console.warn(`[sitemap] added missing URL ${r.loc} (also add it to public/sitemap.xml)`);
+  }
+  await fs.writeFile(smPath, xml, "utf-8");
+  console.log(`[prerender] sitemap: ${added} added, ${bumped} lastmod updated, ${removed} removed`);
+}
+
 async function main() {
   const posts = await loadPosts();
   if (posts.length === 0) {
     console.error("[prerender-blog] No posts found, aborting.");
     process.exit(1);
   }
+  const answers = await loadJsonArray("answers.ts", "export const answers");
 
   const indexHtml = await fs.readFile(path.join(DIST, "index.html"), "utf-8");
   const headMatch = indexHtml.match(/<head>([\s\S]*?)<\/head>/);
@@ -1283,13 +1682,15 @@ async function main() {
     console.error("[prerender-blog] Could not find <head> in dist/index.html");
     process.exit(1);
   }
-  const fullHead = `<head>${headMatch[1]}</head>`;
+  // Every non-home route starts from the homepage head minus its homepage-only
+  // WebPage and BreadcrumbList blocks.
+  const fullHead = stripHomeOnlyBlocks(`<head>${headMatch[1]}</head>`);
   const baseBody = indexHtml.slice(indexHtml.indexOf("</head>") + 7);
 
   // 1. Blog posts
   for (const post of posts) {
     const newHead = buildHead(post, fullHead);
-    const noscriptPreview = buildBodyPreview(post);
+    const noscriptPreview = buildBodyPreview(post, posts, answers);
     const newBody = baseBody.replace("<body>", `<body>${noscriptPreview}`);
     const html = `<!doctype html>\n<html lang="en">\n${newHead}\n${newBody}`;
     const outDir = path.join(DIST, "blog", post.slug);
@@ -1304,13 +1705,17 @@ async function main() {
   await prerenderServicesPage(fullHead, baseBody);
   await prerenderTopicPages(fullHead, baseBody, posts);
   await prerenderProjectPages(fullHead, baseBody);
-  await prerenderAnswerPages(fullHead, baseBody);
+  await prerenderAnswerPages(fullHead, baseBody, answers);
 
   // 2b. Homepage gets its FAQ schema + static copy last, so no other route inherits it
   await prerenderHomepageFaq(indexHtml);
 
   // 3. RSS feed
   await writeRssFeed(posts);
+
+  // 4. GEO files and sitemap
+  await writeLlmsFiles(posts, answers);
+  await syncSitemap(posts, answers);
 
   console.log(`[prerender] complete.`);
 }

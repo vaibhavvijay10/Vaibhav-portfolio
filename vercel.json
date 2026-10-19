@@ -48,7 +48,7 @@
       ]
     },
     {
-      "source": "/(robots\\.txt|llms\\.txt|ai\\.txt|humans\\.txt)",
+      "source": "/(robots\\.txt|llms\\.txt|llms-full\\.txt|ai\\.txt|humans\\.txt)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600" },
         { "key": "Content-Type", "value": "text/plain; charset=utf-8" }

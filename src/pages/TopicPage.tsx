@@ -4,8 +4,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getTopicBySlug, getPostsForTopic, topics } from "@/data/topics";
-
-const SITE_URL = "https://vaibhavvijay.com";
+import { SITE_URL, seoTitle, seoDescription } from "@/lib/seo";
 
 function setLinkTag(rel: string, href: string) {
   let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
@@ -39,12 +38,13 @@ export default function TopicPage({ slug }: Props) {
   useEffect(() => {
     if (!topic) return;
     const url = `${SITE_URL}/topics/${topic.slug}`;
-    const title = `${topic.title} | Vaibhav Vijay`;
+    const title = seoTitle(topic.title);
+    const description = seoDescription(topic.description);
 
     document.title = title;
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute("content", topic.description);
+      ?.setAttribute("content", description);
     setLinkTag("canonical", url);
 
     document
@@ -56,7 +56,7 @@ export default function TopicPage({ slug }: Props) {
       ?.setAttribute("content", topic.title);
     document
       .querySelector('meta[property="og:description"]')
-      ?.setAttribute("content", topic.description);
+      ?.setAttribute("content", description);
 
     // CollectionPage + ItemList for the articles in this topic
     injectJsonLd("topic-jsonld", {

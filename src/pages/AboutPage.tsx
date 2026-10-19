@@ -9,7 +9,7 @@ const PAGE_URL = `${SITE_URL}/about`;
 
 const PAGE_TITLE = "About Vaibhav Vijay | Product Manager & Head of Growth";
 const PAGE_DESC =
-  "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands in India. $3.5M+ revenue scaled, 5x LTV growth, ASO #180→#1. Based in India, available for consulting globally.";
+  "About Vaibhav Vijay, Product Manager and Head of Growth in India: 7+ years of 0 to 1 launches, an app taken from #180 to #1 and customer LTV grown 5x.";
 
 function setLinkTag(rel: string, href: string) {
   let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);

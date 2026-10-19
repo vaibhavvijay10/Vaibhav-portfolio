@@ -1,0 +1,25 @@
+{
+  "_readme": "Search-result titles for pages whose headline is too long for a <title> (about 60 characters). Keyed by slug. Only the <title> tag uses these; the on-page H1 and og:title keep the full headline. Read by src/lib/seo.ts (SPA) and scripts/prerender-blog.mjs (static HTML). Pages without an entry get the headline, plus ' | Vaibhav Vijay' when it fits.",
+  "blog": {
+    "app-store-180-to-1-biggest-lever-wasnt-ads": { "title": "From #180 to #1 in the App Store: The Lever Was Not Ads" },
+    "apple-search-ads-the-hidden-channel": { "title": "Apple Search Ads: The Channel Your Competitors Forgot" },
+    "every-cfo-inside-igaming-war-room": { "title": "Why Every CFO Should Spend a Month in an iGaming War Room" },
+    "fired-myself-from-23-tasks": { "title": "I Listed My Repeat Tasks, Then Fired Myself From 23" },
+    "local-ai-agent-self-improving": { "title": "The #1 AI Agent Was Not Built by OpenAI or Anthropic" },
+    "openai-dots-found-forgotten-subscriptions": { "title": "OpenAI dots Found ₹1.67 Lakh a Year I Was Losing" },
+    "reactivation-cheaper-than-acquisition": { "title": "The Most Expensive Customer Is One You Paid For Twice" },
+    "shipped-ipl-campaign-without-a-team": { "title": "I Shipped an IPL Campaign Without a Designer or Copywriter" },
+    "structured-generosity-igaming-ltv": { "title": "My Biggest iGaming Lesson Had Nothing to Do With Odds" },
+    "whatsapp-invoice-automation-india": { "title": "WhatsApp Invoice Automation in India for ₹470 a Month" }
+  },
+  "answers": {
+    "cost-to-automate-invoice-follow-ups-india": { "title": "Cost to Automate Invoice Follow-ups for an Indian SMB" },
+    "ekatra-shark-tank-50k-to-2m": { "title": "How Ekatra Grew From $50K to $2M After Shark Tank India" },
+    "improve-signup-to-first-deposit-conversion": { "title": "Lifting Sign-up to First Deposit Conversion in India" },
+    "apple-search-ads-app-store-rank-180-to-1": { "title": "How Apple Search Ads and ASO Took an App From #180 to #1" },
+    "automate-attendance-payroll-biometric-export": { "title": "Automating Attendance and Payroll From a Biometric Export" },
+    "improve-csat-response-time-customer-experience": { "title": "How to Improve CSAT and Response Time in a CX Team" },
+    "indian-gifting-company-first-us-enterprise-contract": { "title": "How an Indian Gifting Firm Won Its First US Enterprise Deal" },
+    "track-b2b-dispatches-bus-railway-courier": { "title": "Tracking B2B Dispatches Across Bus, Railway and Courier" }
+  }
+}

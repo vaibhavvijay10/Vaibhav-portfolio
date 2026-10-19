@@ -5,12 +5,19 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getPostBySlug } from "@/data/blog-posts";
 import { getRelatedPosts } from "@/data/topics";
+import {
+  SITE_URL,
+  HOME_TITLE,
+  HOME_DESC,
+  HOME_OG_TITLE,
+  blogTitle,
+  seoDescription,
+  getRelatedAnswers,
+} from "@/lib/seo";
 
 interface Props {
   slug: string;
 }
-
-const SITE_URL = "https://vaibhavvijay.com";
 
 function setMetaTag(selector: string, attr: string, value: string) {
   let el = document.head.querySelector<HTMLMetaElement>(selector);
@@ -48,13 +55,15 @@ export default function BlogPostPage({ slug }: Props) {
   const [, navigate] = useLocation();
   const post = getPostBySlug(slug);
   const relatedPosts = post ? getRelatedPosts(post, 3) : [];
+  const relatedAnswers = post ? getRelatedAnswers(post, 3) : [];
 
   // Per-post head updates (title, meta, canonical, OG tags, BlogPosting JSON-LD)
   useEffect(() => {
     if (!post) return;
 
     const url = `${SITE_URL}/blog/${post.slug}`;
-    const title = `${post.title} | Vaibhav Vijay`;
+    const title = blogTitle(post);
+    const description = seoDescription(post.excerpt);
     const image = post.infographicUrl
       ? `${SITE_URL}${post.infographicUrl}`
       : `${SITE_URL}/og-vaibhav-vijay.jpg`;
@@ -63,7 +72,7 @@ export default function BlogPostPage({ slug }: Props) {
 
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute("content", post.excerpt);
+      ?.setAttribute("content", description);
 
     setLinkTag("canonical", url);
 
@@ -73,7 +82,7 @@ export default function BlogPostPage({ slug }: Props) {
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", post.title);
     document
       .querySelector('meta[property="og:description"]')
-      ?.setAttribute("content", post.excerpt);
+      ?.setAttribute("content", description);
     document.querySelector('meta[property="og:image"]')?.setAttribute("content", image);
     document
       .querySelector('meta[property="og:image:secure_url"]')
@@ -87,7 +96,7 @@ export default function BlogPostPage({ slug }: Props) {
     document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", post.title);
     document
       .querySelector('meta[name="twitter:description"]')
-      ?.setAttribute("content", post.excerpt);
+      ?.setAttribute("content", description);
     document.querySelector('meta[name="twitter:image"]')?.setAttribute("content", image);
 
     // BlogPosting JSON-LD
@@ -123,30 +132,21 @@ export default function BlogPostPage({ slug }: Props) {
     // Cleanup: restore site-wide tags when navigating away
     return () => {
       const homeUrl = `${SITE_URL}/`;
-      const homeTitle = "Vaibhav Vijay | Product Manager & Head of Growth (7+ Yrs)";
-      const homeDesc =
-        "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands. Expertise in growth strategy, performance marketing (Meta, Google, Apple Search Ads), lifecycle marketing, CRM, retention, CRO and go-to-market strategy.";
       const homeImage = `${SITE_URL}/og-vaibhav-vijay.jpg`;
 
-      document.title = homeTitle;
+      document.title = HOME_TITLE;
       document
         .querySelector('meta[name="description"]')
-        ?.setAttribute("content", homeDesc);
+        ?.setAttribute("content", HOME_DESC);
       setLinkTag("canonical", homeUrl);
       document.querySelector('meta[property="og:type"]')?.setAttribute("content", "profile");
       document.querySelector('meta[property="og:url"]')?.setAttribute("content", homeUrl);
       document
         .querySelector('meta[property="og:title"]')
-        ?.setAttribute(
-          "content",
-          "Vaibhav Vijay — Head of Growth & Performance Marketing Leader"
-        );
+        ?.setAttribute("content", HOME_OG_TITLE);
       document
         .querySelector('meta[property="og:description"]')
-        ?.setAttribute(
-          "content",
-          "7+ years scaling startups and digital brands through performance marketing, lifecycle CRM, CRO and data-driven growth strategy. $3.5M+ revenue scaled across 4 companies."
-        );
+        ?.setAttribute("content", HOME_DESC);
       document
         .querySelector('meta[property="og:image"]')
         ?.setAttribute("content", homeImage);
@@ -429,6 +429,32 @@ export default function BlogPostPage({ slug }: Props) {
                 </div>
               </div>
             </div>
+
+            {/* Related answers — short answer pages that share this post's tags */}
+            {relatedAnswers.length > 0 && (
+              <section className="mt-16 pt-10 border-t border-border">
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Related answers
+                </h2>
+                <ul className="grid gap-3">
+                  {relatedAnswers.map((a) => (
+                    <li key={a.slug}>
+                      <Link
+                        to={`/answers/${a.slug}`}
+                        className="group block rounded-xl border border-border/50 hover:border-accent/50 hover:bg-secondary/30 px-4 py-3 transition-all"
+                      >
+                        <span className="block text-base font-bold text-foreground leading-tight group-hover:text-accent transition-colors mb-1">
+                          {a.question}
+                        </span>
+                        <span className="block text-sm text-muted-foreground line-clamp-2">
+                          {a.shortAnswer}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* Related articles — boosts pages/visit + internal link weight + topical relevance signal */}
             {relatedPosts.length > 0 && (

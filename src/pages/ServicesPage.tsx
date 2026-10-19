@@ -8,10 +8,10 @@ import { services } from "@/data/services";
 const SITE_URL = "https://vaibhavvijay.com";
 const PAGE_URL = `${SITE_URL}/services`;
 
-const PAGE_TITLE =
-  "Services | Vaibhav Vijay — Growth & Performance Marketing Consulting";
+// Keep in sync with prerenderServicesPage() in scripts/prerender-blog.mjs
+const PAGE_TITLE = "Growth & Performance Marketing Services | Vaibhav Vijay";
 const PAGE_DESC =
-  "Fractional Head of Growth, performance marketing optimization, lifecycle CRM, CRO, AI marketing and GTM strategy for startups and digital-first brands. India-based, working globally.";
+  "Fractional Head of Growth, performance marketing optimization, lifecycle CRM, CRO, AI marketing and GTM strategy for startups and digital-first brands.";
 
 function setLinkTag(rel: string, href: string) {
   let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);

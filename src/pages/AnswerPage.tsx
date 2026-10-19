@@ -4,8 +4,7 @@ import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { answers, getAnswerBySlug } from "@/data/answers";
-
-const SITE_URL = "https://vaibhavvijay.com";
+import { SITE_URL, answerTitle, seoDescription } from "@/lib/seo";
 
 function setMeta(selector: string, value: string) {
   document.head.querySelector(selector)?.setAttribute("content", value);
@@ -23,10 +22,10 @@ export default function AnswerPage({ slug }: Props) {
   useEffect(() => {
     if (!answer) return;
     const url = `${SITE_URL}/answers/${answer.slug}`;
-    document.title = `${answer.question} | Vaibhav Vijay`;
-    setMeta('meta[name="description"]', answer.description);
+    document.title = answerTitle(answer);
+    setMeta('meta[name="description"]', seoDescription(answer.description));
     setMeta('meta[property="og:title"]', answer.question);
-    setMeta('meta[property="og:description"]', answer.description);
+    setMeta('meta[property="og:description"]', seoDescription(answer.description));
     setMeta('meta[property="og:url"]', url);
     document.head.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
   }, [answer]);

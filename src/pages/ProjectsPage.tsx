@@ -9,8 +9,9 @@ const SITE_URL = "https://vaibhavvijay.com";
 const PAGE_URL = `${SITE_URL}/projects`;
 
 const PAGE_TITLE = "Projects | Vaibhav Vijay — Product, AI and Growth Builds";
+// Keep in sync with prerenderProjectPages() in scripts/prerender-blog.mjs
 const PAGE_DESC =
-  "Things Vaibhav Vijay has built: AlphaPulse (algorithmic trading engine), Karmic.ai (AI first mobile app), and WinningKings (0-to-1 casino brand launch in India). Architecture, approach and what each one taught.";
+  "Things Vaibhav Vijay has built: AlphaPulse (algorithmic trading engine), Karmic.ai (AI first mobile app) and WinningKings (casino brand launch in India).";
 
 const ICONS = { TrendingUp, Sparkles, Crown } as const;
 

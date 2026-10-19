@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 import { answers } from "@/data/answers";
 
 const SITE_URL = "https://vaibhavvijay.com";
-const PAGE_TITLE = "Answers | Vaibhav Vijay — Short answers backed by real numbers";
+// Keep in sync with prerenderAnswerPages() in scripts/prerender-blog.mjs
+const PAGE_TITLE = "Short Answers Backed by Real Numbers | Vaibhav Vijay";
 const PAGE_DESC =
   "Short, data-backed answers on automation costs, Apple Search Ads, LTV, conversion and go-to-market, each built on numbers from products Vaibhav Vijay has run.";
 

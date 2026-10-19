@@ -13,8 +13,7 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getProjectBySlug, projects } from "@/data/projects";
-
-const SITE_URL = "https://vaibhavvijay.com";
+import { SITE_URL, seoTitle, seoDescription } from "@/lib/seo";
 const ICONS = { TrendingUp, Sparkles, Crown } as const;
 
 const STATUS_STYLES: Record<string, string> = {
@@ -54,12 +53,13 @@ export default function ProjectDetailPage({ slug }: Props) {
   useEffect(() => {
     if (!project) return;
     const url = `${SITE_URL}/projects/${project.slug}`;
-    const title = `${project.name} — ${project.tagline} | Vaibhav Vijay`;
+    const title = seoTitle(`${project.name} — ${project.tagline}`);
+    const description = seoDescription(project.excerpt);
 
     document.title = title;
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute("content", project.excerpt);
+      ?.setAttribute("content", description);
     setLinkTag("canonical", url);
 
     document.querySelector('meta[property="og:type"]')?.setAttribute("content", "article");
@@ -67,7 +67,7 @@ export default function ProjectDetailPage({ slug }: Props) {
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
     document
       .querySelector('meta[property="og:description"]')
-      ?.setAttribute("content", project.excerpt);
+      ?.setAttribute("content", description);
 
     injectJsonLd("project-jsonld", {
       "@context": "https://schema.org",
