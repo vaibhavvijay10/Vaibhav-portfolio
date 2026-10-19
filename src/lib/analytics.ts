@@ -23,8 +23,16 @@ export function isGAEnabled(): boolean {
   return (
     typeof GA_MEASUREMENT_ID === "string" &&
     GA_MEASUREMENT_ID.startsWith("G-") &&
-    GA_MEASUREMENT_ID.length >= 10
+    GA_MEASUREMENT_ID.length >= 10 &&
+    isProductionHost()
   );
+}
+
+/** Only count visits on the live domain, never localhost or Vercel previews. */
+function isProductionHost(): boolean {
+  if (typeof window === "undefined") return false;
+  const host = window.location.hostname;
+  return host === "vaibhavvijay.com" || host === "www.vaibhavvijay.com";
 }
 
 /**
