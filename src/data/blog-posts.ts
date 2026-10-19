@@ -16,6 +16,104 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "18",
+    slug: "app-store-180-to-1-biggest-lever-wasnt-ads",
+    title:
+      "We Went From #180 to #1 in the App Store. The Biggest Lever Wasn't Ads.",
+    excerpt:
+      "Our app was buried at #180 in its category. Everyone assumed the fix was a bigger ad budget. It wasn't. Treating the store listing like a product, using paid search to learn, fixing the first five minutes and shipping weekly took us to #1.",
+    content: `When we launched, our app was buried at #180 in its category.
+
+Everyone assumed the answer was a bigger ad budget.
+
+It wasn't.
+
+What actually moved us:
+
+→ We treated the store listing like a product. Screenshots, title and keywords got the same testing rigour as the app itself.
+
+→ We used paid search to learn, not just to buy installs. The keywords that converted told us how users actually described their problem.
+
+→ We fixed the first five minutes. Installs mean nothing if people leave before their first real action.
+
+→ We shipped small improvements every week instead of waiting for one big launch.
+
+The result: #1 in our category, organic installs roughly doubled, and acquisition costs came down.
+
+The lesson I keep coming back to: growth is rarely one big bet. It's a hundred small, measured ones.
+
+What's the smallest change that ever moved your biggest metric?`,
+    date: "Oct 19, 2026",
+    isoDate: "2026-10-19",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_productmanagement-productmanager-growth-share-7517569736654807040-ai2Y",
+    tags: ["ASO", "Apple Search Ads", "Mobile Growth", "Product Management", "Experimentation"],
+  },
+  {
+    id: "17",
+    slug: "openai-dots-found-forgotten-subscriptions",
+    title:
+      "I Asked OpenAI's dots What It Could Do for Me. It Found ₹1.67 Lakh a Year I Was Losing.",
+    excerpt:
+      "No task, no prompt about money. I connected my inbox to OpenAI's new dots and asked what it could help with. It found about ₹1.67 lakh a year leaking across seven subscriptions, some I had no memory of signing up for.",
+    content: `No task. No prompt about money. I just connected my inbox and asked what it could help me with.
+
+It came back with a problem I didn't know I had.
+
+• About ₹1.67 lakh a year going out across seven subscriptions
+• Multiple subscriptions I had no memory of signing up for, renewing quietly every month and every year
+• A few auto renewing without the price ever showing up in my inbox, one of them in just 11 days
+
+The funny part? I'm a growth person. I design retention loops for a living. And I was the perfect "set and forget" customer.
+
+Subscriptions don't win because you love them. They win because you forget them.
+
+That's what made dots feel different. I didn't go looking for the problem. It found me first.
+
+Which decisions in your life are you still paying for, long after you stopped choosing them?`,
+    date: "Oct 17, 2026",
+    isoDate: "2026-10-17",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_dots-openai-chatgpt-share-7517111426180714496-cUuJ",
+    tags: ["AI", "OpenAI", "AI Agents", "Retention Marketing", "Productivity"],
+  },
+  {
+    id: "16",
+    slug: "ai-agent-found-what-our-dashboard-was-hiding",
+    title:
+      "My AI Agent Found the Problem Our Dashboard Was Hiding",
+    excerpt:
+      "At Ekatra every number was on a dashboard and everything looked fine. A small AI agent on top of our invoices surfaced what no chart showed: slow payers, large orders barely making margin, and buyers due to reorder that nobody had called.",
+    content: `At Ekatra we had every number on a dashboard. Revenue, orders, top clients. Everything looked fine.
+
+So instead of building another report, I built a small AI agent on top of our invoices.
+
+It surfaced three things no chart was showing us:
+• Which clients were taking longer to pay
+• Which large orders were barely making margin
+• Which buyers were due to reorder and nobody had called them
+
+Then we shipped Reminder Pro to follow up automatically, so the team stopped chasing payments in spreadsheets.
+
+It's the same lesson I learned taking a consumer app from #180 to #1 in its App Store category. The win is rarely a new feature. It's asking a sharper question of data you already have, then shipping the smallest thing that answers it.
+
+AI just turns that loop from quarters into days.
+
+What's one question you wish your dashboard could answer?`,
+    date: "Oct 16, 2026",
+    isoDate: "2026-10-16",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/vaibhavvijay10_productmanagement-aiagents-growthstrategy-ugcPost-7516867567190360066-WHfo",
+    infographicUrl: "/blog/post-ai-agent-invoices-1.webp",
+    gallery: [
+      {
+        url: "/blog/post-ai-agent-invoices-2.webp",
+        alt: "Business Insights view of the invoice agent: monthly orders, invoiced value and average order value, with collection rate by account owner.",
+      },
+    ],
+    tags: ["AI", "AI Agents", "Automation", "Small Business India", "Product Management"],
+  },
+  {
     id: "15",
     slug: "shipped-ipl-campaign-without-a-team",
     title:

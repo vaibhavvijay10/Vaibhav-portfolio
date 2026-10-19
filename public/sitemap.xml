@@ -331,4 +331,29 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/app-store-180-to-1-biggest-lever-wasnt-ads</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/openai-dots-found-forgotten-subscriptions</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vaibhavvijay.com/blog/ai-agent-found-what-our-dashboard-was-hiding</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://vaibhavvijay.com/blog/post-ai-agent-invoices-1.webp</image:loc>
+      <image:title>My AI Agent Found the Problem Our Dashboard Was Hiding</image:title>
+    </image:image>
+  </url>
 </urlset>

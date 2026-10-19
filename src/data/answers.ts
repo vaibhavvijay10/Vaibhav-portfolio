@@ -37,21 +37,57 @@ export const answers: Answer[] = [
     "shortAnswer": "About ₹470 a month. That is the running cost of the invoice tracker I built for Ekatra: one small server for the WhatsApp agent, with the web app, database, storage, schedules and email on free tiers.",
     "description": "About ₹470 a month. A real cost breakdown of an invoice follow-up system for an Indian B2B company: WhatsApp intake, OCR, dashboard and automated reminders.",
     "isoDate": "2026-10-17",
-    "tags": ["AI Automation", "Accounts Receivable", "Cost"],
+    "tags": [
+      "AI Automation",
+      "Accounts Receivable",
+      "Cost"
+    ],
     "sections": [
       {
         "heading": "Where does the ₹470 go?",
         "table": {
           "caption": "Monthly running cost of the Ekatra invoice tracker",
-          "columns": ["Part", "Runs on", "Monthly cost"],
+          "columns": [
+            "Part",
+            "Runs on",
+            "Monthly cost"
+          ],
           "rows": [
-            ["Web dashboard", "Cloudflare Pages", "₹0, free tier"],
-            ["Database", "Cloudflare D1", "₹0, free tier"],
-            ["Invoice PDF storage", "Cloudflare R2", "₹0, free tier"],
-            ["WhatsApp listener", "Hetzner CX23 server, Helsinki", "about ₹470"],
-            ["Reminder emails", "Gmail API", "₹0"],
-            ["Daily schedules", "cron-job.org", "₹0"],
-            ["Total", "", "about ₹470"]
+            [
+              "Web dashboard",
+              "Cloudflare Pages",
+              "₹0, free tier"
+            ],
+            [
+              "Database",
+              "Cloudflare D1",
+              "₹0, free tier"
+            ],
+            [
+              "Invoice PDF storage",
+              "Cloudflare R2",
+              "₹0, free tier"
+            ],
+            [
+              "WhatsApp listener",
+              "Hetzner CX23 server, Helsinki",
+              "about ₹470"
+            ],
+            [
+              "Reminder emails",
+              "Gmail API",
+              "₹0"
+            ],
+            [
+              "Daily schedules",
+              "cron-job.org",
+              "₹0"
+            ],
+            [
+              "Total",
+              "",
+              "about ₹470"
+            ]
           ]
         }
       },
@@ -89,8 +125,18 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/blog/whatsapp-invoice-automation-india", "label": "The full build story: WhatsApp invoice automation" },
-      { "href": "/answers/verify-ocr-invoice-amounts", "label": "How to stop OCR misreading invoice amounts" }
+      {
+        "href": "/blog/ai-agent-found-what-our-dashboard-was-hiding",
+        "label": "My AI agent found the problem our dashboard was hiding"
+      },
+      {
+        "href": "/blog/whatsapp-invoice-automation-india",
+        "label": "The full build story: WhatsApp invoice automation"
+      },
+      {
+        "href": "/answers/verify-ocr-invoice-amounts",
+        "label": "How to stop OCR misreading invoice amounts"
+      }
     ]
   },
   {
@@ -99,18 +145,37 @@ export const answers: Answer[] = [
     "shortAnswer": "Read the amount twice: once from the figures and once from the amount-in-words line that Indian invoices carry, and accept the invoice only when both agree. Mismatches go to a person, and their correction is locked so the next scan can't overwrite it.",
     "description": "Cross-check OCR figures against the invoice's amount in words, flag mismatches, and lock human corrections. How the Ekatra invoice tracker keeps amounts right.",
     "isoDate": "2026-10-17",
-    "tags": ["AI Automation", "OCR", "Data Quality"],
+    "tags": [
+      "AI Automation",
+      "OCR",
+      "Data Quality"
+    ],
     "sections": [
       {
         "heading": "Which checks catch which errors?",
         "table": {
           "caption": "Checks used by the Ekatra invoice tracker",
-          "columns": ["Check", "What it catches"],
+          "columns": [
+            "Check",
+            "What it catches"
+          ],
           "rows": [
-            ["Figures against amount in words", "A misread digit or a dropped zero"],
-            ["Invoice number pattern, EK-YY-YY-NN", "Wrong files and duplicates"],
-            ["Lock on manual edits", "A re-scan overwriting a human correction"],
-            ["Audit trail", "Who changed which number, and when"]
+            [
+              "Figures against amount in words",
+              "A misread digit or a dropped zero"
+            ],
+            [
+              "Invoice number pattern, EK-YY-YY-NN",
+              "Wrong files and duplicates"
+            ],
+            [
+              "Lock on manual edits",
+              "A re-scan overwriting a human correction"
+            ],
+            [
+              "Audit trail",
+              "Who changed which number, and when"
+            ]
           ]
         }
       },
@@ -134,7 +199,10 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/answers/cost-to-automate-invoice-follow-ups-india", "label": "What the whole invoice system costs to run" }
+      {
+        "href": "/answers/cost-to-automate-invoice-follow-ups-india",
+        "label": "What the whole invoice system costs to run"
+      }
     ]
   },
   {
@@ -143,18 +211,42 @@ export const answers: Answer[] = [
     "shortAnswer": "By running App Store Optimization and Apple Search Ads as one system: paid keyword and creative tests decided what went into the organic listing. In about 90 days the app moved from #180 to #1 in its category, with organic installs up 80 to 120% and blended CAC down 15 to 25%.",
     "description": "From #180 to #1 in about 90 days. How ASO and Apple Search Ads worked together, with the before and after numbers: organic installs, blended CAC and CPA.",
     "isoDate": "2026-10-17",
-    "tags": ["Apple Search Ads", "ASO", "Mobile Growth"],
+    "tags": [
+      "Apple Search Ads",
+      "ASO",
+      "Mobile Growth"
+    ],
     "sections": [
       {
         "heading": "What changed?",
         "table": {
           "caption": "Before and after, about 90 days",
-          "columns": ["Metric", "Before", "After"],
+          "columns": [
+            "Metric",
+            "Before",
+            "After"
+          ],
           "rows": [
-            ["App Store category rank", "#180", "#1"],
-            ["Organic installs", "Baseline", "+80 to 120%"],
-            ["Blended CAC", "Baseline", "−15 to 25%"],
-            ["Apple Search Ads CPA", "—", "Under $4"]
+            [
+              "App Store category rank",
+              "#180",
+              "#1"
+            ],
+            [
+              "Organic installs",
+              "Baseline",
+              "+80 to 120%"
+            ],
+            [
+              "Blended CAC",
+              "Baseline",
+              "−15 to 25%"
+            ],
+            [
+              "Apple Search Ads CPA",
+              "—",
+              "Under $4"
+            ]
           ]
         }
       },
@@ -181,8 +273,18 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/blog/apple-search-ads-the-hidden-channel", "label": "Apple Search Ads: the hidden channel" },
-      { "href": "/topics/performance-marketing", "label": "More on performance marketing" }
+      {
+        "href": "/blog/app-store-180-to-1-biggest-lever-wasnt-ads",
+        "label": "We went from #180 to #1: the biggest lever wasn't ads"
+      },
+      {
+        "href": "/blog/apple-search-ads-the-hidden-channel",
+        "label": "Apple Search Ads: the hidden channel"
+      },
+      {
+        "href": "/topics/performance-marketing",
+        "label": "More on performance marketing"
+      }
     ]
   },
   {
@@ -191,19 +293,47 @@ export const answers: Answer[] = [
     "shortAnswer": "Segment customers by deposit tier, give each tier its own journey and triggers, and price bonuses by cohort instead of handing them out evenly. On a real-money gaming platform this took LTV from $70 to $350 and cut payback from five months to three.",
     "description": "LTV from $70 to $350 and payback from 5 to 3 months. How deposit-tier segmentation, behavioural triggers and bonus discipline worked, with the numbers.",
     "isoDate": "2026-10-17",
-    "tags": ["Retention", "LTV", "CRM"],
+    "tags": [
+      "Retention",
+      "LTV",
+      "CRM"
+    ],
     "sections": [
       {
         "heading": "What moved?",
         "table": {
           "caption": "Results on a real-money gaming platform, 2021 to 2025",
-          "columns": ["Metric", "Before", "After"],
+          "columns": [
+            "Metric",
+            "Before",
+            "After"
+          ],
           "rows": [
-            ["Customer LTV", "$70", "$350"],
-            ["Payback period", "5 months", "3 months"],
-            ["Repeat deposits", "Baseline", "+15 to 25%"],
-            ["Churn", "Baseline", "−8 to 12%"],
-            ["Cash bonus cost", "—", "10 to 18% of GGR"]
+            [
+              "Customer LTV",
+              "$70",
+              "$350"
+            ],
+            [
+              "Payback period",
+              "5 months",
+              "3 months"
+            ],
+            [
+              "Repeat deposits",
+              "Baseline",
+              "+15 to 25%"
+            ],
+            [
+              "Churn",
+              "Baseline",
+              "−8 to 12%"
+            ],
+            [
+              "Cash bonus cost",
+              "—",
+              "10 to 18% of GGR"
+            ]
           ]
         }
       },
@@ -235,8 +365,14 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/blog/structured-generosity-igaming-ltv", "label": "Structured generosity: the biggest LTV lesson" },
-      { "href": "/blog/reactivation-cheaper-than-acquisition", "label": "Why reactivation beats acquisition" }
+      {
+        "href": "/blog/structured-generosity-igaming-ltv",
+        "label": "Structured generosity: the biggest LTV lesson"
+      },
+      {
+        "href": "/blog/reactivation-cheaper-than-acquisition",
+        "label": "Why reactivation beats acquisition"
+      }
     ]
   },
   {
@@ -245,17 +381,33 @@ export const answers: Answer[] = [
     "shortAnswer": "Fix the two places people drop: identity checks and the first payment. Clearer KYC guidance, offer and landing page tests and social proof took registration-to-deposit from 5% to 6%, and smarter routing across UPI, IMPS and cards raised deposit acceptance by 5 to 8 points.",
     "description": "Registration-to-deposit from 5% to 6% and deposit acceptance up 5 to 8 points. The KYC, offer and payment routing changes behind it in an Indian real-money app.",
     "isoDate": "2026-10-17",
-    "tags": ["Conversion", "Payments", "India"],
+    "tags": [
+      "Conversion",
+      "Payments",
+      "India"
+    ],
     "sections": [
       {
         "heading": "Which changes moved which number?",
         "table": {
           "caption": "Results in an Indian real-money app",
-          "columns": ["Change", "Result"],
+          "columns": [
+            "Change",
+            "Result"
+          ],
           "rows": [
-            ["KYC guidance, offer and landing page tests, social proof", "Registration to deposit 5% → 6%, about +20%"],
-            ["Payment gateway routing across UPI, IMPS and cards", "Deposit acceptance +5 to 8 points"],
-            ["Same routing work", "First deposit conversion +8 to 12%"]
+            [
+              "KYC guidance, offer and landing page tests, social proof",
+              "Registration to deposit 5% → 6%, about +20%"
+            ],
+            [
+              "Payment gateway routing across UPI, IMPS and cards",
+              "Deposit acceptance +5 to 8 points"
+            ],
+            [
+              "Same routing work",
+              "First deposit conversion +8 to 12%"
+            ]
           ]
         }
       },
@@ -279,7 +431,10 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/answers/raise-ltv-70-to-350-deposit-tiers", "label": "What happens after the first deposit: raising LTV" }
+      {
+        "href": "/answers/raise-ltv-70-to-350-deposit-tiers",
+        "label": "What happens after the first deposit: raising LTV"
+      }
     ]
   },
   {
@@ -288,19 +443,41 @@ export const answers: Answer[] = [
     "shortAnswer": "By turning the attention into a repeatable go-to-market: sharper positioning and packaging, a demand engine across Meta, Google, influencers and WhatsApp CRM, and corporate gifting as a new product line. Revenue grew from $50K to $2M.",
     "description": "From $50K to $2M in revenue. The positioning, channel mix and corporate gifting product line behind Ekatra's growth after its Shark Tank India appearance.",
     "isoDate": "2026-10-17",
-    "tags": ["Go-to-Market", "D2C", "B2B"],
+    "tags": [
+      "Go-to-Market",
+      "D2C",
+      "B2B"
+    ],
     "sections": [
       {
         "heading": "What changed?",
         "table": {
           "caption": "Ekatra's go-to-market after Shark Tank India",
-          "columns": ["Lever", "What we did"],
+          "columns": [
+            "Lever",
+            "What we did"
+          ],
           "rows": [
-            ["Positioning and packaging", "Rebuilt the brand story for a national audience"],
-            ["Demand", "Meta and Google Ads, influencer seeding, retargeting"],
-            ["Retention", "Email and WhatsApp CRM"],
-            ["New product line", "Corporate gifting with a catalogue, customisation and pricing tiers"],
-            ["Result", "Revenue from $50K to $2M"]
+            [
+              "Positioning and packaging",
+              "Rebuilt the brand story for a national audience"
+            ],
+            [
+              "Demand",
+              "Meta and Google Ads, influencer seeding, retargeting"
+            ],
+            [
+              "Retention",
+              "Email and WhatsApp CRM"
+            ],
+            [
+              "New product line",
+              "Corporate gifting with a catalogue, customisation and pricing tiers"
+            ],
+            [
+              "Result",
+              "Revenue from $50K to $2M"
+            ]
           ]
         }
       },
@@ -324,7 +501,10 @@ export const answers: Answer[] = [
       }
     ],
     "related": [
-      { "href": "/topics/retention-and-lifecycle", "label": "More on retention and CRM" }
+      {
+        "href": "/topics/retention-and-lifecycle",
+        "label": "More on retention and CRM"
+      }
     ]
   }
 ];
