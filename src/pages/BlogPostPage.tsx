@@ -57,7 +57,7 @@ export default function BlogPostPage({ slug }: Props) {
     const title = `${post.title} | Vaibhav Vijay`;
     const image = post.infographicUrl
       ? `${SITE_URL}${post.infographicUrl}`
-      : `${SITE_URL}/og-image.jpg`;
+      : `${SITE_URL}/og-vaibhav-vijay.jpg`;
 
     document.title = title;
 
@@ -126,7 +126,7 @@ export default function BlogPostPage({ slug }: Props) {
       const homeTitle = "Vaibhav Vijay | Product Manager & Head of Growth (7+ Yrs)";
       const homeDesc =
         "Vaibhav Vijay is a Head of Growth and Performance Marketing leader with 7+ years scaling startups and digital brands. Expertise in growth strategy, performance marketing (Meta, Google, Apple Search Ads), lifecycle marketing, CRM, retention, CRO and go-to-market strategy.";
-      const homeImage = `${SITE_URL}/og-image.jpg`;
+      const homeImage = `${SITE_URL}/og-vaibhav-vijay.jpg`;
 
       document.title = homeTitle;
       document

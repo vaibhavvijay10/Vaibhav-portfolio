@@ -233,7 +233,7 @@ function buildHead(post, baseHead) {
   const description = post.excerpt;
   const image = post.infographicUrl
     ? `${SITE_URL}${post.infographicUrl}`
-    : `${SITE_URL}/og-image.jpg`;
+    : `${SITE_URL}/og-vaibhav-vijay.jpg`;
 
   // Replace title
   let head = baseHead.replace(
@@ -446,7 +446,7 @@ function buildStaticHead(opts, baseHead) {
     title,
     description,
     ogType = "website",
-    ogImage = `${SITE_URL}/og-image.jpg`,
+    ogImage = `${SITE_URL}/og-vaibhav-vijay.jpg`,
     jsonLdBlocks = [],
   } = opts;
 
@@ -1178,7 +1178,7 @@ async function prerenderAnswerPages(fullHead, baseBody) {
       keywords: a.tags.join(", "),
       author: person,
       publisher: person,
-      image: `${SITE_URL}/og-image.jpg`,
+      image: `${SITE_URL}/og-vaibhav-vijay.jpg`,
       speakable: { "@type": "SpeakableSpecification", cssSelector: [".answer-short", "h1"] },
     };
     const faqLd = {
